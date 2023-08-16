@@ -5,6 +5,7 @@ int main(){
 
     // INTEGERS
     
+    
     // can't change after init(try to use CAPSLOCK in naming)  
     const int R = 23;
     // mistake -> R = 1;
