@@ -10,6 +10,7 @@ int main(){
 
     // if x == 5 || x == 4 (|| == or, u can spam it: x || y || z || etc.)
     // if x < 10 && x > 3(&& == and, u also can spam it )
+    // not == !(false == !true)
 
 
     // IF | ELSE BLOCK
