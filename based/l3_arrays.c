@@ -32,5 +32,6 @@ int main(){
 
     printf("%d", array[1][1]);
 
+
     return 0;
 } 
