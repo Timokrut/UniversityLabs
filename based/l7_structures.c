@@ -18,7 +18,7 @@ int main(){
     printf("Автомобиль %s обладает скоростью: %d\n", BMW.name, BMW.speed);
     printf("Автомобиль %s обладает скоростью: %d\n", Mercedes.name, Mercedes.speed);
     
-    printf("Привет, Алексей");
+//gfh
 
    return 0; 
 }
