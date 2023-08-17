@@ -4,19 +4,21 @@
 
 int main()
 {
-    int x,y;
-    ptintf("введите первое число:");
-    scanf("%d", &x);
-    ptintf("введите второе число:");
-    scanf("%d",&y);
+    int x, y;
 
-    if (x==y)
+    printf("введите первое число:");
+    scanf("%d", &x);
+
+    printf("введите второе число:");
+    scanf("%d", &y);
+
+    if (x == y)
     {
-        printf("%d и %d равны", x , y);
+        printf("%d и %d равны\n", x, y);
     }
     else
     {
-        printf("%d не %d равны", x , y);
+        printf("%d не %d равны\n", x, y);
     }
 
     return 0;
