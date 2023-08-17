@@ -1,14 +1,16 @@
 // Напишите программу на C, которая принимает два целых числа, и проверьте, равны они или нет.
 
 #include <stdio.h>
+#include <locale.h>
 
 int main()
 {
-    int x,y;
-    ptintf("введите первое число:");
+    setlocale(LC_ALL, "Rus");
+    int x , y;
+    printf("введите первое число:\n");
     scanf("%d", &x);
-    ptintf("введите второе число:");
-    scanf("%d",&y);
+    printf("введите второе число:\n");
+    scanf("%d", &y);
 
     if (x==y)
     {
