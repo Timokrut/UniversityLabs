@@ -8,7 +8,6 @@ int main(){
     {
         printf("second value should't be 0\n");
             scanf("%d", &b);
-        
     }
     printf("result is %d", c % b);
     return 0; 

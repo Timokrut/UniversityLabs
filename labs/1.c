@@ -5,9 +5,10 @@ int main() {
     int N;
     scanf("%d", &N);
 
-    if (N <= 0) {
-        printf("Пожалуйста, введите положительное число.\n");
-        return 1; // Возврат кода ошибки
+    while (N <= 0)
+    {
+        printf("Enter a positive number\n");
+        scanf("%d", &N);
     }
 
     int power = 0;
@@ -31,5 +32,6 @@ int main() {
         printf("Ближайшая степень числа 2 к %d: %d\n", N, pre_last_power);
     else
         printf("Ближайшая степень числа 2 к %d: %d\n", N, last_power);
+    
     return 0;
 }
