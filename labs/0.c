@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 int main(){
     int a, b, c;
     scanf("%d%d%d", &a, &b, &c);
@@ -9,6 +8,6 @@ int main(){
         printf("second value should't be 0\n");
             scanf("%d", &b);
     }
-    printf("result is %d", c % b);
+    printf("result is %d", (c % b) * a); //additional task (result * a)
     return 0; 
 }
