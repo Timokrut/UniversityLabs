@@ -2,9 +2,11 @@
 #include <math.h>
 
 int main() {
+    // input a number
     int N;
     scanf("%d", &N);
 
+    // cheking for positive
     while (N <= 0)
     {
         printf("Enter a positive number\n");
@@ -14,6 +16,9 @@ int main() {
     int power = 0;
     int pre_last_power = 1;
     int last_power;
+
+    // finding 2 values (left and right to our)
+    // ------8-----------15-16-----
     while (1) {
         int next_power = pow(2, power);
         if (next_power >= N) {
@@ -24,6 +29,7 @@ int main() {
         power++;
     }
 
+    // finding nearest
     int temp1, temp2;
     temp1 = abs(N - pre_last_power);
     temp2 = abs(N - last_power);
