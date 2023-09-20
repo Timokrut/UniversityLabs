@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
 
 int main() {
     // input a number
@@ -19,7 +20,7 @@ int main() {
 
     // finding 2 values (left and right to our)
     // ------8-----------15-16-----
-    while (1) {
+    while (true) {
         int next_power = pow(2, power);
         if (next_power >= N) {
             last_power = next_power;
