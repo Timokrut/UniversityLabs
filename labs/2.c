@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include "func.h"
+#include <ctype.h>
 
 // Ввести строку, вывести только слова, оканчивающиеся на согласную букву.
 
