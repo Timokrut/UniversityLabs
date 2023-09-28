@@ -21,7 +21,7 @@ int main() {
     // finding 2 values (left and right to our)
     // ------8-----------15-16-----
     while (1) {
-        int next_power = topow(2, power);
+        int next_power = topow(3, power);
         if (next_power >= N) {
             last_power = next_power;
             break;
@@ -36,9 +36,9 @@ int main() {
     temp2 = abs(N - last_power);
 
     if (temp1 < temp2)
-        printf("Ближайшая степень числа 2 к %d: %d\n", N, pre_last_power);
+        printf("Ближайшая степень числа 3 к %d: %d\n", N, pre_last_power);
     else
-        printf("Ближайшая степень числа 2 к %d: %d\n", N, last_power);
+        printf("Ближайшая степень числа 3 к %d: %d\n", N, last_power);
     
     return 0;
 }
