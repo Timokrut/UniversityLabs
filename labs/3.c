@@ -10,16 +10,16 @@ int max_array(int arr[], int length)
         if (abs(max_value) < abs(arr[i]))
             max_value = abs(arr[i]);
     }
-    
-    return max_value;       
+
+    return max_value;
 }
 
 int main()
 {
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 10, 2, -100};
     int len = sizeof(arr) / sizeof(arr[0]);
-    
+
     printf("%d", max_array(arr, len));
-    
+
     return 0;
 }
