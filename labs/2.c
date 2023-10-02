@@ -25,7 +25,7 @@ int main(){
         // index of last element
         int l_idx = len(string) - 1; 
 
-        // checking if last symbol is vowel or consonant
+        // checking if last symbol is vowel or not
         for (int i = 0; i <= 4; i++)
         {
             if (vowels[i] == tolower(string[l_idx]))

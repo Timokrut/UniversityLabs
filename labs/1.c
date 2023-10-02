@@ -1,6 +1,7 @@
 #include "func.h"
 
 // Ввести целое число N, вывести ближайшую к N степень числа 2.
+// additional - тоже самое, но для тройки
 
 int main() {
     // input a number
