@@ -10,7 +10,6 @@ int main(){
     char vowels[] = "aeiou";
     bool flag = true;
 
-    printf("enter '!' to end program\n");
     
     while (true)
     {
@@ -18,9 +17,9 @@ int main(){
         // enter a string
         scanf("%s", string);
 
-        // requirement to end program
-        if (my_strcmp(string, "!") == 0)
+        if (string[0] == '\0')
         break;
+        // requirement to end program
 
         // index of last element
         int l_idx = len(string) - 1; 
