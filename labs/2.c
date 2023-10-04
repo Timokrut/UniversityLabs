@@ -1,45 +1,46 @@
-#include <stdbool.h>
 #include "func.h"
-#include <ctype.h>
 
 // Ввести строку, вывести только слова, оканчивающиеся на согласную букву.
 
 int main(){
 
-    char string[100];
-    char vowels[] = "aeiou";
-    bool flag = true;
+    char data[100];
+    printf("enter a string: ");
 
-    
-    while (true)
+    int c;
+    int index;
+    while ((c = getchar()) != '\n' && index < 99)
     {
+        data[index] = c;
+        index ++;
+    }
+    data[index] = '\0';
 
-        // enter a string
-        scanf("%s", string);
-
-        if (string[0] == '\0')
-        break;
-        // requirement to end program
-
-        // index of last element
-        int l_idx = len(string) - 1; 
-
-        // checking if last symbol is vowel or not
-        for (int i = 0; i <= 4; i++)
+    int word_start = 0;
+    for (int i = 0; data[i] != '\0'; i++)
+    {
+        if (data[i] == ' ' || data[i + 1] == '\0')
         {
-            if (vowels[i] == tolower(string[l_idx]))
+            //------------if (condition)->(i-1) else i
+            int word_end = (data[i] == ' ' ? i - 1 : i);
+            // int word_end;
+            // if (data[i] == ' ')
+            // word_end = i - 1;
+            // else
+            // word_end = i;
+
+            if (isVowel(data[word_end]) == 0)
             {
-                flag = false;
-                break;
+                for (int j = word_start; j <= word_end; j++)
+                {
+                    putchar(data[j]);
+                }
+                putchar(' ');
             }
-        }
+
+            word_start = i + 1;
         
-        // if string meets requirements
-        if (flag == true)
-        {
-            printf("%s\n", string);
         }
-        flag = true;
     }
     return 0;
 }

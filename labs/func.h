@@ -61,3 +61,14 @@ int len(char* string)
 
     return length;   
 }
+
+int isVowel(char c)
+{
+    char vowels[] = "aeiouAEIOU";
+    for (int i = 0; i < 10; i++)
+    {
+        if (vowels[i] == c)
+        return 1;
+    }
+    return 0;
+}
