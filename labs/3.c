@@ -1,10 +1,11 @@
-#include <stdio.h>
 #include "func.h"
 
-int max_array(int arr[], int length)
+// Написать функцию нахождения в массиве целых чисел наибольшего по абсолютной величине числа.
+
+int max_array(int arr[])
 {
     int max_value = 0;
-
+    int length = len_array(arr);
     for (int i = 0; i < length; i++)
     {
         if (abs(max_value) < abs(arr[i]))
@@ -16,10 +17,17 @@ int max_array(int arr[], int length)
 
 int main()
 {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 10, 2, -100};
-    int len = sizeof(arr) / sizeof(arr[0]);
-
-    printf("%d", max_array(arr, len));
+    int length, number;
+    printf("how much numbers will be in array: ");
+    scanf("%d", &length);
+    int arr[length];
+    for (int i = 0; i <= length; i++)
+    {
+        scanf("%d", &number);
+        arr[i] = number;
+    }
+    
+    printf("%d", max_array(arr));
 
     return 0;
 }
