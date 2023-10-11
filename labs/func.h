@@ -74,12 +74,12 @@ int isVowel(char c)
 }
 
 
-int len_array(int arr[])
-{
-    int length = 0;
-    for (int i = 0; arr[i] != '\0'; i++)
-    {
-        length ++;
-    }
-    return length;
-}
+// int len_array(int arr[])
+// {
+//     int length = 0;
+//     for (int i = 0; arr[i] != '\0'; i++)
+//     {
+//         length ++;
+//     }
+//     return length;
+// }
