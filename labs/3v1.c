@@ -9,9 +9,9 @@ int max_array(int arr[], int length)
         if (abs(max_value) < abs(arr[i]))
             max_value = abs(arr[i]);
     }
-
     return max_value;
 }
+
 
 int main()
 {
@@ -25,6 +25,6 @@ int main()
         arr[i] = number;
     }
     
-    printf("Max absolute number is %d", max_array(arr, length));
+    printf("max absolute number is %d", max_array(arr, length));
     return 0;
 }
