@@ -1,11 +1,6 @@
 #include <stdio.h>
 
-double findMinFractionalPart(double arr[], int length) {
-    if (length <= 0) {
-        printf("Массив пуст\n");
-        return 0.0;
-    }
-
+double minFractional(double arr[], int length) {
     int minIndex = 0;
 
     for (int i = 0; i < length; i++) {
@@ -21,24 +16,19 @@ double findMinFractionalPart(double arr[], int length) {
 
 int main() {
     int length;
-    printf("Введите размер массива: ");
+    printf("enter a length of array: ");
     scanf("%d", &length);
-
-    if (length <= 0) {
-        printf("Размер массива должен быть положительным числом.\n");
-        return 1;
-    }
 
     double arr[length];
 
-    printf("Введите %d вещественных чисел:\n", length);
+    printf("enter a number :\n");
     for (int i = 0; i < length; i++) {
         scanf("%lf", &arr[i]);
     }
 
-    double result = findMinFractionalPart(arr, length);
+    double result = minFractional(arr, length);
 
-    printf("Число с наименьшей дробной частью: %lf\n", result);
+    printf("number with min fractional part is %lf", result);
 
     return 0;
 }
