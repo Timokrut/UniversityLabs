@@ -1,17 +1,44 @@
-#include "func.h"
+#include "stdio.h"
 
 // Ввести строку. Вывести строку так, чтобы за каждым словом следовало количество пробелов/точек, равное номеру слова в строке.
 
+void swap_spaces(char* str)
+{
+    int i = 0, j = 0;
+    int foundSpace = 0;
+
+    while (str[i] != '\0') 
+    {
+        if (str[i] == ' ') 
+        {
+            if (foundSpace == 0) 
+            {
+                str[j] = str[i];
+                j++;
+                foundSpace = 1;
+            }
+        } 
+        else 
+        {
+            str[j] = str[i];
+            j++;
+            foundSpace = 0;
+        }
+        i++;
+    }
+    str[j] = '\0';
+}
+
 char fix_string(char* string)
 {
-    int multiplier = 0; // смотря как считать, 0 - если с индекса 0, 1 - если с индекса 1
+    int multiplier = 1;
     while (*string != '\0')
     {
         if (*string == ' ')
         {
             for (int i = 0; i < multiplier; i++)
             {
-                printf(" ");
+                printf(".");
             }
             multiplier ++;
         }
@@ -26,7 +53,18 @@ char fix_string(char* string)
 
 int main()
 {
-    char string[] = "hello world i love u mom <3";
+    char string[100];
+    printf("enter a string: ");
+
+    int c;
+    int index;
+    while ((c = getchar()) != '\n' && index < 99)
+    {
+        string[index] = c;
+        index ++;
+    }
+    string[index] = '\0';
+    swap_spaces(string);
     fix_string(string);
     return 0;
 }
