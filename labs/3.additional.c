@@ -21,8 +21,8 @@ int main() {
 
     double arr[length];
 
-    printf("enter a number :\n");
     for (int i = 0; i < length; i++) {
+        printf("enter a number : ");
         scanf("%lf", &arr[i]);
     }
 
