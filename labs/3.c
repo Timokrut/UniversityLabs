@@ -15,7 +15,7 @@ int max_array(int arr[])
 int main()
 {
     int length, number;
-    printf("how much numbers will be in array: ");
+    printf("how many numbers will be in array: ");
     scanf("%d", &length);
 
     int arr[length + 1];
