@@ -1,6 +1,6 @@
 #include "stdio.h"
 
-// Ввести строку. Вывести строку так, чтобы за каждым словом следовало количество пробелов/точек, равное номеру слова в строке.
+// Ввести строку. Вывести строку так, чтобы за каждым словом следовало количество пробелов/точек, равное длине строки.
 
 void swap_spaces(char* str)
 {
@@ -31,7 +31,7 @@ void swap_spaces(char* str)
 
 char fix_string(char* string)
 {
-    int multiplier = 1;
+    int multiplier = 0;
     while (*string != '\0')
     {
         if (*string == ' ')
@@ -40,11 +40,12 @@ char fix_string(char* string)
             {
                 printf(".");
             }
-            multiplier ++;
+            multiplier = 0;
         }
         else
         {
             printf("%c", *string);
+            multiplier ++;
         }
         string++;
     }
