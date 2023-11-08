@@ -37,16 +37,7 @@ int my_strcmp(char *strg1, char *strg2)
         strg1++;
         strg2++;
     }
-
-    if(*strg1 == *strg2)
-    {
-        return 0; // strings are identical
-    }
-
-    else
-    {
-        return *strg1 - *strg2;
-    }
+    return *strg1 - *strg2;
 }
 
 
