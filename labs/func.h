@@ -65,12 +65,19 @@ int isVowel(char c)
 }
 
 
-// int len_array(int arr[])
-// {
-//     int length = 0;
-//     for (int i = 0; arr[i] != '\0'; i++)
-//     {
-//         length ++;
-//     }
-//     return length;
-// }
+char* my_strcat(char* dest, const char* src) {
+    char* ptr = dest;
+    // Находим конец dest
+    while (*ptr != '\0') {
+        ptr++;
+    }
+    // Копируем символы из src в конец dest
+    while (*src != '\0') {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+    // Устанавливаем завершающий нулевой символ
+    *ptr = '\0';
+    return dest;
+}
