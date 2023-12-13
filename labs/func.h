@@ -10,6 +10,15 @@ double min(double a, double b)
 }
 
 
+double max(double a, double b)
+{
+    if (a > b)
+    return a;
+    else 
+    return b;
+}
+
+
 int abs(int x)
 {
     if (x < 0)
