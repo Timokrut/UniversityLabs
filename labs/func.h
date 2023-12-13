@@ -81,3 +81,40 @@ char* my_strcat(char* dest, const char* src) {
     *ptr = '\0';
     return dest;
 }
+
+// void find_min_len(char* sentence, int* minLen, int* startPos, int* endPos)
+// {
+//     int string_length = len(sentence);
+
+//     if (sentence[string_length - 1] == '\n')
+//         sentence[string_length - 1] = '\0';
+
+//     int word_start = 0;
+//     int word_end = 0;
+//     int word_min_length = 10000;
+//     int cur_word_min_len;
+//     int fin_start = 0;
+//     int fin_end = 0;
+
+//     for (int i = 0; i < string_length; i++)
+//     {
+//         if ((sentence[i] == ' ') || (sentence[i] == '\0'))
+//         {
+//             word_end = i - 1;
+
+//             cur_word_min_len = word_end - word_start + 1;
+
+//             word_min_length = min(word_min_length, (word_end - word_start) + 1);
+
+//             if (cur_word_min_len <= word_min_length)
+//             {
+//                 fin_start = word_start;
+//                 fin_end = word_end;
+//             }
+//             word_start = i + 1;
+//         }
+//     }
+//     *minLen = word_min_length;
+//     *startPos = fin_start;
+//     *endPos = fin_end;
+// }

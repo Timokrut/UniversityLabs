@@ -1,118 +1,149 @@
 #include "func.h"
 #include <stdlib.h>
-#include <string.h>
 
-char* dynamicarrayforstrings()
+// Ввести строку и слово. Вставить введенное слово вместо самого короткого слова в строке.
+
+void swap_spaces(char* str)
 {
-    size_t bufferSize = 10;
+    int i = 0, j = 0;
+    int foundSpace = 0;
 
-    char* str = (char*)malloc(bufferSize * sizeof(char));
-
-    if (str == NULL)
+    while (str[i] != '\0') 
     {
-        fprintf(stderr, "Memory allocation error\n");
-        return NULL;
-    }
-
-    printf("Enter the string: ");
-
-    char ch;
-    size_t index = 0;
-
-    while ((ch = getchar()) != '\n')
-    {
-        if (index == bufferSize - 1)
+        if (str[i] == ' ') 
         {
-            bufferSize *= 2;
-            char* temp = (char*)realloc(str, bufferSize * sizeof(char));
-
-            if (temp == NULL)
+            if (foundSpace == 0) 
             {
-                fprintf(stderr, "Memory reallocation error\n");
-                free(str);
-                return NULL;
+                str[j] = str[i];
+                j++;
+                foundSpace = 1;
             }
-
-            str = temp;
+        } 
+        else 
+        {
+            str[j] = str[i];
+            j++;
+            foundSpace = 0;
         }
-        str[index++] = ch;
+        i++;
     }
-
-    str[index] = '\0';
-
-    return str;
-    // обязательно в конце main очищать память
+    str[j] = '\0';
 }
 
-void findMinLen(char* ptr, size_t len_string, int* minLen, int* startPos, int* endPos)
+int custom_strlen(const char* str)
 {
-    int end = 0;
-    int start = 0;
-    int min_len = 100000;
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+void custom_strcpy(char* dest, const char* src)
+{
+    while (*src != '\0') {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+}
+
+void find_min_len(char* sentence, int* minLen, int* startPos, int* endPos, int* sentence_length)
+{
+    int string_length = len(sentence);
+
+    if (sentence[string_length - 1] == '\n')
+        sentence[string_length - 1] = '\0';
+
+    int word_start = 0;
+    int word_end = 0;
+    int word_min_length = 10000;
+    int cur_word_min_len;
     int fin_start = 0;
     int fin_end = 0;
 
-    for (int i = 0; i < len_string + 1; i++)
+    for (int i = 0; i < string_length; i++)
     {
-        if (ptr[i] == ' ' || ptr[i] == '\0')
+        if ((sentence[i] == ' ') || (sentence[i] == '\0'))
         {
-            end = i - 1;
-            min_len = min(min_len + 1, (end - start) + 1);
+            word_end = i - 1;
 
-            if (min_len <= (end - start) + 1)
+            cur_word_min_len = word_end - word_start + 1;
+
+            word_min_length = min(word_min_length, (word_end - word_start) + 1);
+
+            if (cur_word_min_len <= word_min_length)
             {
-                fin_start = start;
-                fin_end = end;
+                fin_start = word_start;
+                fin_end = word_end;
             }
-            start = i + 1;
+            word_start = i + 1;
         }
     }
-    *minLen = min_len;
+    *minLen = word_min_length;
     *startPos = fin_start;
     *endPos = fin_end;
+    *sentence_length = string_length;
 }
 
 
+char* replace_shortest_word(char* sentence, char* new_word)
+{
+    int new_word_len = len(new_word);
+    int minLen;
+    int startPos;
+    int endPos;
+    int sentence_length;
+    find_min_len(sentence, &minLen, &startPos, &endPos, &sentence_length);
+
+    int new_sentence_len = sentence_length - 1 + new_word_len - minLen;
+    char* result = (char*)malloc((new_sentence_len + 1) * sizeof(char));
+
+    if (result == NULL) {
+        printf("Memory allocation failed.");
+        return NULL;
+    }
+    int k = 0;
+    for (int i = 0; i < startPos; i++)
+    {
+        result[i] = sentence[i];
+        k++;
+    }
+
+    int j = 0;
+    for (int i = startPos; j < new_word_len; i++)
+    {
+        result[i] = new_word[j];
+        j++;
+    }
+    
+    j += k;
+
+    for (int i = endPos + 1; i < sentence_length; i++)
+    {
+        result[j] = sentence[i];
+        j++;
+    }
+    return result;
+}
 
 int main()
 {
-    int minLen, startPos, endPos;
-    char* string_start = dynamicarrayforstrings();
-    char* new_word = dynamicarrayforstrings();
+    char input_sentence[1000];
+    char new_word[100];
 
-    size_t len_string_start = len(string_start);
-    size_t len_new_word = len(new_word);
+    printf("Enter a sentence: ");
+    fgets(input_sentence, sizeof(input_sentence), stdin);
+    swap_spaces(input_sentence);
 
-    findMinLen(string_start, len_string_start, &minLen, &startPos, &endPos);
+    printf("Input a word: ");
+    scanf("%s", new_word);
 
-    char* answer = NULL;
-    answer = (char*)malloc(len_string_start * sizeof(char) - minLen * sizeof(char) + len_new_word * sizeof(char));
-
-    for (int i = 0; i < startPos; i++)
-        answer[i] = string_start[i];
-
-
-    int j = 0;
-    for (int i = startPos; i < endPos + 1; i++)
-    {
-        answer[i] = new_word[j];
-        j++;
+    char* result = replace_shortest_word(input_sentence, new_word);
+    if (result != NULL) {
+        printf("Result: %s\n", result);
+        free(result);
     }
-
-    size_t len_answer = len(answer);
-
-    int k = endPos + 1, index = 0;
-    for (int i = startPos + j; i < len_answer; i++)
-    {
-        answer[i] = string_start[k];
-        index = i;
-        k++;
-    }
-    answer[index] = '\0';
-
-    puts(answer);
-
-    free(string_start);
-    free(answer);
     return 0;
 }
