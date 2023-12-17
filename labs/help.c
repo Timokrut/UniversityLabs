@@ -16,6 +16,7 @@ int main() {
     char str[100];
     printf("Введите строку: ");
 
+
     int c;
     int index;
     while ((c = getchar()) != '\n' && index < 99)
