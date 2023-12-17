@@ -2,10 +2,11 @@
 
 // Функция, которая проверяет, является ли строка палиндромом (симметричной)
 int isPalindrome(char *str, int start, int end) {
-    while (start < end) {
-        if (str[start] != str[end]) {
+    while (start < end) 
+    {
+        if (str[start] != str[end]) 
             return 0;
-        }
+        
         start++;
         end--;
     }
@@ -15,7 +16,6 @@ int isPalindrome(char *str, int start, int end) {
 int main() {
     char str[100];
     printf("Введите строку: ");
-
 
     int c;
     int index;
