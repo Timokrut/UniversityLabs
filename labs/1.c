@@ -37,9 +37,9 @@ int main() {
     temp2 = abs(N - last_power);
 
     if (temp1 < temp2)
-        printf("Ближайшая степень числа 3 к %d: %d\n", N, pre_last_power);
+        printf("Ближайшая степень числа 2 к %d: %d\n", N, pre_last_power);
     else
-        printf("Ближайшая степень числа 3 к %d: %d\n", N, last_power);
+        printf("Ближайшая степень числа 2 к %d: %d\n", N, last_power);
     
     return 0;
 }
