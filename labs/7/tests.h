@@ -17,6 +17,9 @@ void test_decTo11th()
     assert(strcmp(result, "0") == 0);
     printf("Test 3 passed\n");
 
+
+    printf("All tests passed successfully!\n");
+
 }
 
 
