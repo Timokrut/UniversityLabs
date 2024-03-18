@@ -1,3 +1,4 @@
+#pragma once
 void test_countzeroes()
 {
     int result[256];

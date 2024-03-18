@@ -1,3 +1,4 @@
+#pragma once
 char* decTo11th(long number, char result[])
 {
     int i = 0;

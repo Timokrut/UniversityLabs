@@ -1,3 +1,4 @@
+#pragma once
 void test_decTo11th()
 {
     char result[120];

@@ -1,3 +1,4 @@
+#pragma once
 void* bin(int number, int result[], int* length)
 {
     int i = 0;
