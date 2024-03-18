@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#define LEN 1000
 
-// availibale functions:
-// printf, scanf, getchar
-// gets, fgets, malloc, free, fopen, fclos
+// Define the structure for a node in the linked list
+typedef struct Node {
+    char *word;
+    struct Node *next;
+} Node;
 
 int len(char* string)
 {
@@ -15,98 +15,148 @@ int len(char* string)
         string++;
         length++;
     }
+
     return length;   
 }
 
-char* readFile(FILE* file)
-{
-    char *string = (char*)malloc(LEN * sizeof(char));
-
-    fgets(string, LEN * sizeof(char), file);
-
-    return string;
-}
-
-char* merge_arrays(char* string1, char* string2, char* string3)
-{
-    int len1; for (len1 = 0; string1[len1] != '\0'; len1++);
-    int len2; for (len2 = 0; string2[len2] != '\0'; len2++);
-    int len3; for (len3 = 0; string3[len3] != '\0'; len3++);
-    int fin_size = 0;
-
-    fin_size = len1 + len2 + len3;
-
-    char *fin_array = (char*)malloc(fin_size * sizeof(char));
-
-    int u = 0;
-
-    for (int i = 0; i < len1; i++)
-    {
-        fin_array[u] = string1[i];
-        u++;
-    }
-    for (int i = 0; i < len2; i++)
-    {
-        fin_array[u] = string2[i];
-        u++;
-    }
-    for (int i = 0; i < len3; i++)
-    {
-        fin_array[u] = string3[i];
-        u++;
-    }
-
-    return fin_array;
+char* strcpy(char* dest, const char* src) {
+    char* original_dest = dest;
+    while ((*dest++ = *src++) != '\0');
+    return original_dest; 
 }
 
 
-void sort_LtH_bylen(char* data)
-{
-    // int sorted = 0;
-    // char temp[10];
-    // while (!sorted)
-    // {
-    //     sorted = 1;
-    //     for (int i = 0; i < 7; i++) {
-    //         if (len(data[i]) > len(data[i+1])) {
-    //             strcpy(temp, data[i]);
-    //             strcpy(data[i], data[i+1]);
-    //             strcpy(data[i+1], temp);
-    //             sorted = 0; 
-    //         }
-    //     }
-    // }
+char* strdup(char* str) {
+    char* new_str = (char*)malloc(len(str) + 1);
+
+    if (new_str == NULL) {
+        return NULL; // Memory allocation failed
+    }
+    strcpy(new_str, str);
+    return new_str;
 }
 
 
-int main()
-{
-    FILE *file1;
-    FILE *file2;
-    FILE *file3;
-    char *string1;
-    char *string2;
-    char *string3;
-    char *fin_array;
+// Create a new node
+Node* createNode(char *word) {
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->word = strdup(word);
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Insert a node at the end of linked list
+void insertNode(Node **head, char *word) {
+    Node *newNode = createNode(word);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node *temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// print linked list
+void printList(Node *head) {
+    while (head != NULL) {
+        printf("%s ", head->word);
+        head = head->next;
+    }
+}
+
+// sort linked list by word length
+void sortList(Node **head) {
+    int swapped;
+    Node *ptr1;
+    Node *lptr = NULL;
+
+    if (*head == NULL)
+        return;
+
+    do {
+        swapped = 0;
+        ptr1 = *head;
+
+        while (ptr1->next != lptr) {
+            if (len(ptr1->word) > len(ptr1->next->word)) {
+                char *temp = ptr1->word;
+                ptr1->word = ptr1->next->word;
+                ptr1->next->word = temp;
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
+
+// free memory allocated for linked list
+void freeList(Node *head) {
+    Node *temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp->word);
+        free(temp);
+    }
+}
+
+Node* mergeLists(Node *head1, Node *head2) {
+    if (head1 == NULL)
+        return head2;
+    if (head2 == NULL)
+        return head1;
+
+    Node *temp = head1;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = head2;
+    return head1;
+}
+
+
+
+int main() {
+    FILE *file1, *file2, *file3;
+    char word[100];
+
+    Node *head1 = NULL;
+    Node *head2 = NULL;
+    Node *head3 = NULL;
 
     file1 = fopen("file1.txt", "r");
-    string1 = readFile(file1);
-
     file2 = fopen("file2.txt", "r");
-    string2 = readFile(file2);
-
     file3 = fopen("file3.txt", "r");
-    string3 = readFile(file3);
 
-    fin_array = merge_arrays(string1, string2, string3);
+    while (fscanf(file1, "%s", word) != EOF) {
+        insertNode(&head1, word);
+    }
 
-    sort_LtH_bylen(fin_array);
+    while (fscanf(file2, "%s", word) != EOF) {
+        insertNode(&head2, word);
+    }
 
-    printf("%s", fin_array);
+    while (fscanf(file3, "%s", word) != EOF) {
+        insertNode(&head3, word);
+    }
 
-    free(string1);
-    free(string2);
-    free(string3);
-    free(fin_array);
+    fclose(file1);
+    fclose(file2);
+    fclose(file3);
+
+    head1 = mergeLists(head1, head2);
+    head1 = mergeLists(head1, head3);
+
+    sortList(&head1);
+
+    printf("Sorted List:\n");
+    printList(head1);
+
+    freeList(head1);
+
     return 0;
 }
