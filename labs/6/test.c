@@ -1,12 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 // Define the structure for a node in the linked list
 typedef struct Node {
     char *word;
     struct Node *next;
 } Node;
+
+int len(char* string)
+{
+    int length = 0;
+    while (*string != '\0')
+    {
+        string++;
+        length++;
+    }
+
+    return length;   
+}
+
+char* strcpy(char* dest, const char* src) {
+    char* original_dest = dest;
+    while ((*dest++ = *src++) != '\0');
+    return original_dest; 
+}
+
+
+char* strdup(char* str) {
+    char* new_str = (char*)malloc(len(str) + 1);
+
+    if (new_str == NULL) {
+        return NULL; // Memory allocation failed
+    }
+    strcpy(new_str, str);
+    return new_str;
+}
+
 
 // Create a new node
 Node* createNode(char *word) {
@@ -52,7 +81,7 @@ void sortList(Node **head) {
         ptr1 = *head;
 
         while (ptr1->next != lptr) {
-            if (strlen(ptr1->word) > strlen(ptr1->next->word)) {
+            if (len(ptr1->word) > len(ptr1->next->word)) {
                 char *temp = ptr1->word;
                 ptr1->word = ptr1->next->word;
                 ptr1->next->word = temp;
@@ -74,6 +103,22 @@ void freeList(Node *head) {
         free(temp);
     }
 }
+
+Node* mergeLists(Node *head1, Node *head2) {
+    if (head1 == NULL)
+        return head2;
+    if (head2 == NULL)
+        return head1;
+
+    Node *temp = head1;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = head2;
+    return head1;
+}
+
+
 
 int main() {
     FILE *file1, *file2, *file3;
@@ -103,17 +148,8 @@ int main() {
     fclose(file2);
     fclose(file3);
 
-    // Concatenate the linked lists
-    Node *current = head1;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-    current->next = head2;
-    current = head2;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-    current->next = head3;
+    head1 = mergeLists(head1, head2);
+    head1 = mergeLists(head1, head3);
 
     sortList(&head1);
 
