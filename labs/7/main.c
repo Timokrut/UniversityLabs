@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <assert.h> 
-#include <string.h>
-#include "function.h"
-#include "tests.h"
+#include "header.h"
 
 int main()
 {

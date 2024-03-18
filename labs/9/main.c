@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <assert.h> 
-#include "func.h"
-#include "test.h"
+#include "header.h"
 
 
 int main()
