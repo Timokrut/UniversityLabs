@@ -24,6 +24,11 @@ void* bin(int number, int result[], int* length)
         len++;
     }
 
+    for (int i = len; i >= 0; i--)
+        printf("%d", result[i]);    
+
+    printf("\n");
+
     *length = len;
     return result;
 }
