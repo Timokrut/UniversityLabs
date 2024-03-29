@@ -6,8 +6,6 @@
 void* bin(int number, int result[], int* length)
 {
     int i = 0;
-
-    char current;
     int len = 0;
 
     if (number == 0) {

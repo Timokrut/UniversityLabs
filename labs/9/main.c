@@ -5,7 +5,7 @@
 int main()
 {
     int number = 0;
-    int result[256];
+    int result[256] = {0};
     int length = 0;
 
     scanf("%d", &number);
