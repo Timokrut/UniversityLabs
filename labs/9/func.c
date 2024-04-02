@@ -22,7 +22,7 @@ void* bin(int number, int result[], int* length)
         len++;
     }
 
-    for (int i = len; i >= 0; i--)
+    for (int i = len - 1; i >= 0; i--)
         printf("%d", result[i]);    
 
     printf("\n");
