@@ -11,7 +11,8 @@ void* bin(int number, int result[], int* length)
     if (number == 0) {
         result[0] = 0;
         len = 1;
-        
+        printf("0\n");
+
         *length = len;
         return result;
     }
