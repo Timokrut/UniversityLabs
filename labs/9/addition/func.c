@@ -195,7 +195,7 @@ void tests()
     printf("All tests passed successfully!\n\n");
 
 
-    printf("Press Any Key to Continue\n");  
+    printf("Press Enter to continue\n");  
     getchar();    
     system("clear");
 }
