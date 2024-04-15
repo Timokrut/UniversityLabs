@@ -4,27 +4,17 @@ int main()
 {
     test();
 
-    char sentence[256];
+    char sentence[256] ;
     char delimiters[256];
     
     int index = 0;
     int c;
 
     printf("Enter your string: ");
-    while ((c = getchar()) != '\n' && index < 256)
-    {
-        sentence[index] = c;
-        index++;
-    }
-    sentence[index] = '\0';
+    fgets(sentence, 256, stdin);
 
     printf("Enter your delimiters: ");
-    while ((c = getchar()) != '\n' && index < 256)
-    {
-        delimiters[index] = c;
-        index++;
-    }
-    delimiters[index] = '\0';
+    fgets(delimiters, 256, stdin);
 
     char* word2 = strtok(sentence, delimiters);
 
