@@ -1,35 +1,73 @@
 #include <iostream>
 
-class Rectangle {   
-    private:
-        double lenght;
-        double width;
-    public:
-    Rectangle(double len, double wid): lenght(len), width(wid) {}
+class Rectangle {
+private:
+    double length;
+    double width;
 
-    int calculate_area(){
-        return lenght * width;
+public:
+    Rectangle() : length(1.0), width(1.0) {}
+
+    Rectangle(double l, double w) {
+        setLength(l);
+        setWidth(w);
     }
-    int calculate_perimetr(){
-        return (lenght + width) * 2;
+
+    void setLength(double l) {
+        if (l > 0 && l <= 20.0)
+            length = l;
+        else {
+            std::cout << "Length must be at 0.0 to 20.0" << std::endl;
+            length = 1.0;
+        }
+    }
+
+    void setWidth(double w) {
+        if (w > 0 && w <= 20.0)
+            width = w;
+        else {
+            std::cout << "Width must be at 0.0 to 20.0" << std::endl;
+            width = 1.0;
+        }
+    }
+
+    double getLength() const {
+        return length;
+    }
+
+    double getWidth() const {
+        return width;
+    }
+
+    double perimeter() const {
+        return 2 * (length + width);
+    }
+
+    double area() const {
+        return length * width;
+    }
+
+    void display() const {
+        std::cout << "Length: " << length << std::endl;
+        std::cout << "Width: " << width << std::endl;
+        std::cout << "Perimeter: " << perimeter() << std::endl;
+        std::cout << "Area: " << area() << std::endl;
     }
 };
 
-int main() 
-{
-    double length, width;
-    std::cout << "Input the length of the rectangle: ";
+int main() {
+
+    double length;
+    double width;
+
+    std::cout << "Enter length of Rectangle: ";
     std::cin >> length;
-    std::cout << "Input the width of the rectangle: ";
-    std::cin >> width; 
 
-    Rectangle rectangle(length, width);
+    std::cout << "Enter width of Rectangle: ";
+    std::cin >> width;
 
-    double area = rectangle.calculate_area(); 
-    std::cout << "\nArea: " << area << std::endl; 
-
-    double perimeter = rectangle.calculate_perimetr(); 
-    std::cout << "Perimeter: " << perimeter << std::endl; 
+    Rectangle rect1(length, width);
+    rect1.display();
 
     return 0;
 }
