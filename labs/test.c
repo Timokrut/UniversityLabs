@@ -1,39 +1,42 @@
 #include <stdio.h>
 
-int count_weight1(unsigned char* number)
+void print_array(char *arr) 
 {
-    int i = 0; 
+    for (int i = 0; i < 64; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+char count_weight(unsigned char number) 
+{
     int counter = 0;
-    while (number[i] != '\0')
-    {
-        if (number[i] == '1')
+    while (number != 0) {
+        if (number & 1)
             counter++;
-        i++;    
+        number >>= 1;
     }
-
     return counter;
 }
 
-
-int count_weight2(unsigned char* number)
+char count_arr_weight(char* arr)
 {
-    int i = 0; 
-    int counter = 0;
-    while (number[i] != '\0')
+    char sum = 0;
+    for (int i = 0; i < 64; i++)
     {
-        counter += number[i] % 2;
-        i++;    
+        if (arr[i] == 1)
+        sum++;
     }
-
-    return counter;
+    return sum;
 }
 
+int main() {
+    char x1 = 40;
+    char arr[64] = {0};
 
-int main()
-{
-    unsigned char binary[9];
-    scanf("%s", binary);
-    printf("%d\n", count_weight1(binary));
-    printf("%d\n", count_weight2(binary));
+    for (int i = 0; i < 64; ++i)
+        arr[i] = count_weight(x1 ^ i) <= 3;
+
+    print_array(arr);
+    printf("%d\n", count_arr_weight(arr));
     return 0;
 }
