@@ -6,3 +6,4 @@
 
 char* my_strtok(char* str, const char* delim);
 void test();
+void create_file(char *word);

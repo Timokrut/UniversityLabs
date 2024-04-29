@@ -31,6 +31,21 @@ char* my_strtok(char* str, const char* delim)
     return str;
 }
 
+int number = 0;
+void create_file(char *word)
+{
+    number++;
+    char filename[50] = "file";
+    
+    snprintf(filename, 50, "file%d.txt", number);
+    FILE* file = fopen(filename, "w+");
+    if(file == NULL)
+        exit(1);
+
+    fputs(word, file);
+    fclose(file);
+}
+
 void test()
 {
     system("clear");
