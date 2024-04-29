@@ -2,249 +2,92 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Функция для анализа файла и определения необходимых библиотек
-void analyzeFile() {
-    FILE* file = fopen("in.c", "r+");
-    FILE* out = fopen("out.h", "w");
+#define MAX_LINE_LENGTH 256
 
-    char line[256];
-    char line_answ[256];
-    
-   int flag_signal_h = 0;
-    int flag_math_h = 0;
-    int flag_wctype_h = 0;
-    int flag_string_h = 0;
-    int flag_stdlib_h = 0;
-    int flag_setjmp_h = 0;
-    int flag_wchar_h = 0;
-    int flag_ctype_h = 0;
-    int flag_locale_h = 0;
-    int flag_stdio_h = 0;
-    int flag_stddef_h = 0;
-    int flag_time_h = 0;
+typedef struct 
+{
+    const char *function;
+    const char *header;
+} FunctionHeaderMap;
 
-    while (fgets(line, sizeof(line), file)) {
-        if (strstr(line, "digittoint") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isalnum") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isalpha") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isascii") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isblank") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "iscntrl") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isdigit") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isgraph") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "islower") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isprint") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "ispunct") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isspace") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isupper") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "isxdigit") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "toascii") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "tolower") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "toupper") && flag_ctype_h == 0) { fputs("#include <ctype.h>\n", out); flag_ctype_h = 1; }
-        if (strstr(line, "localeconv") && flag_locale_h == 0) { fputs("#include <locale.h>\n", out); flag_locale_h = 1; }
-        if (strstr(line, "setlocale") && flag_locale_h == 0) { fputs("#include <locale.h>\n", out); flag_locale_h = 1; }
-        if (strstr(line, "acos") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1; }
-        if (strstr(line, "asin") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1; }
-        if (strstr(line, "atan") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1; }
-        if (strstr(line, "atan2") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "atof") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1;}
-        if (strstr(line, "ceil") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "cos") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "cosh") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "exp") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "fabs") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "floor") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "fmod") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "frexp") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "ldexp") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "log") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "log10") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "modf") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "pow") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "sin") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "sinh") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "sqrt") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "tan") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "tanh") && flag_math_h == 0) { fputs("#include <math.h>\n", out); flag_math_h = 1;}
-        if (strstr(line, "longjmp") && flag_setjmp_h == 0) { fputs("#include <setjmp.h>\n", out); flag_setjmp_h = 1;}
-        if (strstr(line, "setjmp") && flag_setjmp_h == 0) { fputs("#include <setjmp.h>\n", out); flag_setjmp_h = 1;}
-        if (strstr(line, "raise") && flag_signal_h == 0) { fputs("#include <signal.h>\n", out); flag_signal_h = 1;}
-        if (strstr(line, "offsetof") && flag_stddef_h == 0) { fputs("#include <stddef.h>\n", out); flag_stddef_h = 1;}
-        if (strstr(line, "clearerr") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1;}
-        if (strstr(line, "fclose") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1;}
-        if (strstr(line, "feof") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1;}
-        if (strstr(line, "ferror") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fflush") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fgetc") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fgetpos") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fgets") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fopen") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "freopen") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fdopen") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fputc") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fputs") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fread") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fscanf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fseek") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fsetpos") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "ftell") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fwrite") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "getc") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "getchar") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "gets") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "perror") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "printf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "sprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "snprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "putc") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "putchar") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "fputchar") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "puts") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "remove") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "rename") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "rewind") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "scanf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "sscanf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "setbuf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "setvbuf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "tmpfile") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "tmpnam") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "ungetc") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "vprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "vfprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "vsprintf") && flag_stdio_h == 0) { fputs("#include <stdio.h>\n", out); flag_stdio_h = 1; }
-        if (strstr(line, "abort") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "abs") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "labs") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "atexit") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "atoi") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "atol") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "bsearch") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "calloc") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "div") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "ldiv") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "exit") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "free") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "itoa") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "getenv") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "ltoa") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "malloc") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "realloc") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "qsort") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "rand") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "srand") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "strtod") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "strtol") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "strtoul") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "system") && flag_stdlib_h == 0) { fputs("#include <stdlib.h>\n", out); flag_stdlib_h = 1; }
-        if (strstr(line, "memchr") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "memcmp") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "memcpy") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "memmove") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "memset") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strcat") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strncat") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strchr") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strcmp") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strncmp") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strcoll") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strcpy") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strncpy") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strcspn") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strerror") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strlen") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strpbrk") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strrchr") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strspn") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strstr") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strtok") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "strxfrm") && flag_string_h == 0) { fputs("#include <string.h>\n", out); flag_string_h = 1; }
-        if (strstr(line, "asctime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "clock") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "ctime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "difftime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "gmtime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "localtime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "mktime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "strftime") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "time") && flag_time_h == 0) { fputs("#include <time.h>\n", out); flag_time_h = 1; }
-        if (strstr(line, "btowc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fgetwc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fgetws") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fputwc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fputws") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fwide") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fwprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "fwscanf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "getwc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "getwchar") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "mbrlen") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "mbrtowc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "mbsinit") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "mbsrtowcs") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "putwc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "putwchar") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "swprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "swscanf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "ungetwc") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "vfwprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "vswprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "vwprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcrtomb") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcscat") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcschr") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcscmp") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcscoll") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcscpy") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcscspn") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsftime") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcslen") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsncat") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsncmp") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsncpy") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcspbrk") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsrchr") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsrtombs") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsspn") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsstr") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcstod") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcstok") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcstol") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcstoul") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wcsxfrm") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wctob") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wmemchr") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wmemcmp") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wmemcpy") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wmemmove") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wmemset") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wprintf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "wscanf") && flag_wchar_h == 0) { fputs("#include <wchar.h>\n", out); flag_wchar_h = 1; }
-        if (strstr(line, "iswalnum") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswalpha") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswcntrl") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswctype") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswdigit") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswgraph") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswlower") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswprint") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswpunct") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswspace") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswupper") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "iswxdigit") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "towctrans") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "towlower") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "towupper") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "wctrans") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
-        if (strstr(line, "wctype") && flag_wctype_h == 0) { fputs("#include <wctype.h>\n", out); flag_wctype_h = 1; }
+const FunctionHeaderMap functionHeaderMap[] = {
+    {"digittoint", "ctype.h"}, {"isalnum", "ctype.h"}, {"isalpha", "ctype.h"}, {"isascii", "ctype.h"}, {"isblank", "ctype.h"}, {"iscntrl", "ctype.h"}, {"isdigit", "ctype.h"}, {"isgraph", "ctype.h"}, {"islower", "ctype.h"}, {"isprint", "ctype.h"}, {"ispunct", "ctype.h"}, {"isspace", "ctype.h"}, {"isupper", "ctype.h"}, {"isxdigit", "ctype.h"}, {"toascii", "ctype.h"}, {"tolower", "ctype.h"}, {"toupper", "ctype.h"}, {"localeconv", "locale.h"}, {"setlocale", "locale.h"}, {" acos", "math.h"}, {" asin", "math.h"}, {" atan", "math.h"}, {" atan2", "math.h"}, {"atof", "stdlib.h"}, {" ceil", "math.h"}, {" cos", "math.h"}, {" cosh", "math.h"}, {" exp", "math.h"}, {" fabs", "math.h"}, {" floor", "math.h"}, {" fmod", "math.h"}, {" frexp", "math.h"}, {" ldexp", "math.h"}, {" log", "math.h"}, {" log10", "math.h"}, {" modf", "math.h"}, {" pow", "math.h"}, {" sin", "math.h"}, {" sinh", "math.h"}, {" sqrt", "math.h"}, {" tan", "math.h"}, {" tanh", "math.h"}, {"longjmp", "setjmp.h"}, {"setjmp", "setjmp.h"}, {"raise", "signal.h"}, {"offsetof", "stddef.h"}, {"clearerr", "stdio.h"}, {"fclose", "stdio.h"}, {"feof", "stdio.h"}, {"ferror", "stdio.h"}, {"fflush", "stdio.h"}, {"fgetc", "stdio.h"}, {"fgetpos", "stdio.h"}, {"fgets", "stdio.h"}, {"fopen", "stdio.h"}, {"freopen", "stdio.h"}, {"fdopen", "stdio.h"}, {"fprintf", "stdio.h"}, {"fputc", "stdio.h"}, {"fputs", "stdio.h"}, {"fread", "stdio.h"}, {"fscanf", "stdio.h"}, {"fseek", "stdio.h"}, {"fsetpos", "stdio.h"}, {"ftell", "stdio.h"}, {"fwrite", "stdio.h"}, {"getc", "stdio.h"}, {"getchar", "stdio.h"}, {"gets", "stdio.h"}, {"perror", "stdio.h"}, {"printf", "stdio.h"}, {"sprintf", "stdio.h"}, {"snprintf", "stdio.h"}, {"putc", "stdio.h"}, {"putchar", "stdio.h"}, {"fputchar", "stdio.h"}, {"puts", "stdio.h"}, {"remove", "stdio.h"}, {"rename", "stdio.h"}, {"rewind", "stdio.h"}, {"scanf", "stdio.h"}, {"sscanf", "stdio.h"}, {"setbuf", "stdio.h"}, {"setvbuf", "stdio.h"}, {"tmpfile", "stdio.h"}, {"tmpnam", "stdio.h"}, {"ungetc", "stdio.h"}, {"vprintf", "stdio.h"}, {"vfprintf", "stdio.h"}, {"vsprintf", "stdio.h"}, {"abort", "stdlib.h"}, {"abs", "stdlib.h"}, {"labs", "stdlib.h"}, {"atexit", "stdlib.h"}, {"atoi", "stdlib.h"}, {"atol", "stdlib.h"}, {"bsearch", "stdlib.h"}, {"calloc", "stdlib.h"}, {"div", "stdlib.h"}, {"ldiv", "stdlib.h"}, {"exit", "stdlib.h"}, {"free", "stdlib.h"}, {"itoa", "stdlib.h"}, {"getenv", "stdlib.h"}, {"ltoa", "stdlib.h"}, {"malloc", "stdlib.h"}, {"realloc", "stdlib.h"}, {"qsort", "stdlib.h"}, {"rand", "stdlib.h"}, {"srand", "stdlib.h"}, {"strtod", "stdlib.h"}, {"strtol", "stdlib.h"}, {"strtoul", "stdlib.h"}, {"system", "stdlib.h"}, {"memchr", "string.h"}, {"memcmp", "string.h"}, {"memcpy", "string.h"}, {"memmove", "string.h"}, {"memset", "string.h"}, {"strcat", "string.h"}, {"strncat", "string.h"}, {"strchr", "string.h"}, {"strcmp", "string.h"}, {"strncmp", "string.h"}, {"strcoll", "string.h"}, {"strcpy", "string.h"}, {"strncpy", "string.h"}, {"strcspn", "string.h"}, {"strerror", "string.h"}, {"strlen", "string.h"}, {"strpbrk", "string.h"}, {"strrchr", "string.h"}, {"strspn", "string.h"}, {"strstr", "string.h"}, {"strtok", "string.h"}, {"strxfrm", "string.h"}, {"asctime", "time.h"}, {"clock", "time.h"}, {"ctime", "time.h"}, {"difftime", "time.h"}, {"gmtime", "time.h"}, {"localtime", "time.h"}, {"mktime", "time.h"}, {"strftime", "time.h"}, {"time", "time.h"}, {"btowc", "wchar.h"}, {"fgetwc", "wchar.h"}, {"fgetws", "wchar.h"}, {"fputwc", "wchar.h"}, {"fputws", "wchar.h"}, {"fwide", "wchar.h"}, {"fwprintf", "wchar.h"}, {"fwscanf", "wchar.h"}, {"getwc", "wchar.h"}, {"getwchar", "wchar.h"}, {"mbrlen", "wchar.h"}, {"mbrtowc", "wchar.h"}, {"mbsinit", "wchar.h"}, {"mbsrtowcs", "wchar.h"}, {"putwc", "wchar.h"}, {"putwchar", "wchar.h"}, {"swprintf", "wchar.h"}, {"swscanf", "wchar.h"}, {"ungetwc", "wchar.h"}, {"vfwprintf", "wchar.h"}, {"vswprintf", "wchar.h"}, {"vwprintf", "wchar.h"}, {"wcrtomb", "wchar.h"}, {"wcscat", "wchar.h"}, {"wcschr", "wchar.h"}, {"wcscmp", "wchar.h"}, {"wcscoll", "wchar.h"}, {"wcscpy", "wchar.h"}, {"wcscspn", "wchar.h"}, {"wcsftime", "wchar.h"}, {"wcslen", "wchar.h"}, {"wcsncat", "wchar.h"}, {"wcsncmp", "wchar.h"}, {"wcsncpy", "wchar.h"}, {"wcspbrk", "wchar.h"}, {"wcsrchr", "wchar.h"}, {"wcsrtombs", "wchar.h"}, {"wcsspn", "wchar.h"}, {"wcsstr", "wchar.h"}, {"wcstod", "wchar.h"}, {"wcstok", "wchar.h"}, {"wcstol", "wchar.h"}, {"wcstoul", "wchar.h"}, {"wcsxfrm", "wchar.h"}, {"wctob", "wchar.h"}, {"wmemchr", "wchar.h"}, {"wmemcmp", "wchar.h"}, {"wmemcpy", "wchar.h"}, {"wmemmove", "wchar.h"}, {"wmemset", "wchar.h"}, {"wprintf", "wchar.h"}, {"wscanf", "wchar.h"}, {"iswalnum", "wctype.h"}, {"iswalpha", "wctype.h"}, {"iswcntrl", "wctype.h"}, {"iswctype", "wctype.h"}, {"iswdigit", "wctype.h"}, {"iswgraph", "wctype.h"}, {"iswlower", "wctype.h"}, {"iswprint", "wctype.h"}, {"iswpunct", "wctype.h"}, {"iswspace", "wctype.h"}, {"iswupper", "wctype.h"}, {"iswxdigit", "wctype.h"}, {"towctrans", "wctype.h"}, {"towlower", "wctype.h"}, {"towupper", "wctype.h"}, {"wctrans", "wctype.h"}, {"wctype", "wctype.h"}
+};
 
-    }
-   fclose(file);
-   fclose(out);
+const char* getHeaderForFunction(const char *function) 
+{
+    for (size_t i = 0; i < sizeof(functionHeaderMap) / sizeof(functionHeaderMap[0]); ++i)
+        if (strstr(function, functionHeaderMap[i].function) != NULL)
+            return functionHeaderMap[i].header;
+    return NULL;
 }
 
-int main() {
+void analyzeFile() 
+{
+    FILE* file = fopen("in.c", "r");
+    FILE* out = fopen("out.txt", "w");
+    char line[MAX_LINE_LENGTH];
+
+    int includedHeaders[256] = {0};
+
+    while (fgets(line, sizeof(line), file))
+        for (size_t i = 0; i < sizeof(functionHeaderMap) / sizeof(functionHeaderMap[0]); ++i)
+            if (strstr(line, functionHeaderMap[i].function) != NULL)
+                includedHeaders[i] = 1;
+
+
+    for (size_t i = 0; i < sizeof(functionHeaderMap) / sizeof(functionHeaderMap[0]); ++i)
+        if (includedHeaders[i])
+            fprintf(out, "#include <%s>\n", functionHeaderMap[i].header);
+
+    fclose(file);
+    fclose(out);
+}
+
+int main() 
+{
     analyzeFile();
+
+    FILE *input_file, *output_file;
+    char line[256];
+    char unique_strings[1000][256];
+    int num_unique = 0;
+
+    input_file = fopen("out.txt", "r");
+    if (input_file == NULL) {
+        perror("Error opening input file");
+        return 1;
+    }
+
+    while (fgets(line, sizeof(line), input_file) != NULL) {
+        int found_duplicate = 0;
+
+        for (int i = 0; i < num_unique; i++) {
+            if (strcmp(line, unique_strings[i]) == 0) {
+                found_duplicate = 1;
+                break;
+            }
+        }
+
+        if (!found_duplicate) {
+            strcpy(unique_strings[num_unique], line);
+            num_unique++;
+        }
+    }
+
+    fclose(input_file);
+
+    output_file = fopen("output_file.h", "w");
+    if (output_file == NULL) {
+        perror("Error opening output file");
+        return 1;
+    }
+
+    for (int i = 0; i < num_unique; i++) {
+        fputs(unique_strings[i], output_file);
+    }
+
+    fclose(output_file);
+    remove("out.txt");
     return 0;
 }
