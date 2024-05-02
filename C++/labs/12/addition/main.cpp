@@ -23,6 +23,9 @@ int main() {
 
     rect1.display();
 
+
+    if (rect1.is_square())
+        printf("Квадрат\n");
     rect1.draw();
 
     return 0;
