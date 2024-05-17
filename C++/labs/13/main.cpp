@@ -10,33 +10,58 @@ int main()
     set1.add(1);
     set2.add(2);
 
+    std::cout << "Set 1 = " << set1 << std::endl;
+    std::cout << "Set 2 = " << set2 << std::endl;
+
     set3 = set1 + set2;
 
-    std::cout << (set3) << std::endl;
+    std::cout << "Set 1 + Set 2 = Set 3 = " << (set3) << std::endl;
 
     IntSet set4;
     set4.add(5);
 
+    std::cout << "Set 4 = " << set4 << std::endl;
+
     set3 += set4;
+
+    std::cout << "Set 3 += Set 4 = " << set3 << std::endl;
 
     std::cout << (set3) << std::endl;
 
     set3 -= set4;
+
+    std::cout << "Set 3 -= Set 4 = " << set3 << std::endl;
     std::cout << (set3) << std::endl;
 
-    std::cout << (set1 == set2) << std::endl;
-    std::cout << (set1 != set2) << std::endl;
-    std::cout << (set1 > set3) << std::endl;
-    std::cout << (set1 < set3) << std::endl;
-    std::cout << (set1 >= set3) << std::endl;
-    std::cout << (set1 <= set3) << std::endl;
 
-    std::cout << (set1 * set3) << std::endl;
-    std::cout << (set3 * set1) << std::endl;
+    // std::cout << (set1 == set2) << std::endl;
+    std::cout << "Set 1 == Set 2? - " << ((set1 == set2) ? "True" : "False" )<< std::endl;
+    // std::cout << (set1 != set2) << std::endl;
+    std::cout << "Set 1 != Set 2? - " << ((set1 != set2) ? "True" : "False" )<< std::endl;
+    // std::cout << (set1 > set3) << std::endl;
+    std::cout << "Set 1 > Set 3? - " << ((set1 > set3) ? "True" : "False" )<< std::endl;
+    // std::cout << (set1 < set3) << std::endl;
+    std::cout << "Set 1 < Set 3? - " << ((set1 < set3) ? "True" : "False" )<< std::endl;
+    // std::cout << (set1 >= set3) << std::endl;
+    std::cout << "Set 1 >= Set 3? - " << ((set1 >= set3) ? "True" : "False" )<< std::endl;
+    // std::cout << (set1 <= set3) << std::endl;
+    std::cout << "Set 1 <= Set 3? - " << ((set1 <= set3) ? "True" : "False" )<< std::endl;
 
-    std::cout << (set1 + 10) << std::endl;
 
-    std::cout << (set1 - 7) << std::endl;
+    // std::cout << (set1 * set3) << std::endl;
+    std::cout << "Set 1 * Set 3 = " << ((set1 * set3))<< std::endl;
+    // std::cout << (set3 * set1) << std::endl;
+    std::cout << "Set 3 * Set 1 = " << ((set3 * set1))<< std::endl;
+
+    set1 = set1 + 10;
+    // std::cout << (set1) << std::endl;
+    std::cout << "Set 1 + 10 = " << (set1)<< std::endl;
+    
+
+
+    set1 = set1 - 7;
+    // std::cout << (set1) << std::endl;
+    std::cout << "Set 1 - 7 = " << (set1)<< std::endl;
 
 
     IntSet set5;
