@@ -63,13 +63,30 @@ int main()
     // std::cout << (set1) << std::endl;
     std::cout << "Set 1 - 7 = " << (set1)<< std::endl;
 
+    // IntSet set5;
+    // std::cout << "Enter integers to add to the set (non-integer to stop): ";
+    // while (std::cin >> set5) {
+    //     std::cout << "Current set: " << set5 << std::endl;
+    // }
 
-    IntSet set5;
-    std::cout << "Enter integers to add to the set (non-integer to stop): ";
-    while (std::cin >> set5) {
-        std::cout << "Current set: " << set5 << std::endl;
-    }
+    IntSet set6;
+    IntSet set7;
 
+    set6.add(1);
+    set6.add(2);
+    set6.add(3);
+
+    set7.add(2);
+    set7.add(3);
+    set7.add(4);
+
+    std::cout << "Set 6 = " << set6 <<std::endl;
+    std::cout << "Set 7 = " << set7 <<std::endl;
+
+    std::cout<< "Left Join: " << set6.leftJoin(set7) << std::endl;
+    std::cout<< "Right Join " << set6.rightJoin(set7) << std::endl;
+    std::cout<< "Left Join Null " << set6.leftJoinNull(set7) << std::endl; 
+    std::cout<< "Right Join Null " << set6.rightJoinNull(set7) << std::endl;
 
     return 0;
 }

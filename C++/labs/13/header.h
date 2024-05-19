@@ -41,4 +41,9 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const IntSet& set);
     friend std::istream& operator>>(std::istream& is, IntSet& set);
+
+    IntSet leftJoin (const IntSet& other) const;
+    IntSet rightJoin (const IntSet& other) const;
+    IntSet leftJoinNull (const IntSet& other) const;
+    IntSet rightJoinNull (const IntSet& other) const;
 };

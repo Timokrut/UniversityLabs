@@ -178,3 +178,34 @@ std::istream& operator>>(std::istream& is, IntSet& set) {
     set.add(num);
     return is;
 }
+
+IntSet IntSet::leftJoin(const IntSet& other) const {
+    IntSet result;
+    for (int i = 0; i < size; ++i) {
+        result.add(elements[i]);
+        if (other.contains(elements[i])) {
+            result.add(elements[i]);
+        }
+    }
+    return result;
+}
+
+IntSet IntSet::rightJoin(const IntSet& other) const {
+    return other.leftJoin(*this);
+}
+
+IntSet IntSet::leftJoinNull(const IntSet& other) const {
+    IntSet result;
+    for (int i = 0; i < size; ++i) {
+        if (other.contains(elements[i])) {
+            continue;
+        }
+        else
+            result.add(elements[i]);
+    }
+    return result;
+}
+
+IntSet IntSet::rightJoinNull(const IntSet& other) const {
+    return other.leftJoinNull(*this);
+}
