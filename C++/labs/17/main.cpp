@@ -32,7 +32,13 @@ int main()
     std::cout << f_set << std::endl;
 
     i_set.clear();
-    std::cout << "After clearing: " << i_set << std::endl;
+    std::cout << "Integer Set after clearing: " << i_set << std::endl;
+    
+    f_set.erase(5.0);
+    std::cout << "Trying to remove 5.0 " << f_set << std::endl;
+    
+    f_set.erase(1.5);
+    std::cout << "Trying to remove 1.5 " << f_set << std::endl;
     
     return 0;
 }
