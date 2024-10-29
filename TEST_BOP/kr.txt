@@ -1,0 +1,61 @@
+1) Перестановка 
+P(n) = n!
+
+void P(int* arr, int start, int size)
+{
+    if (start >= size) {
+        cout << arr;
+        return;
+    }
+    
+    for (int i = start; i < size; i++)
+    {
+        swap(arr[start], arr[i])
+        P(arr, start + 1, size)
+        swap(arr[start], arr[i])
+    }
+}
+
+
+2) Сочетание - порядок элементов не важен
+C(n, k) = n! / (n-k)!
+
+void C(vector* arr, vector* combination, int start, int k)
+{
+    if (combination.size() == k){
+        cout << combination;
+        return;
+    }
+
+    for (int i = start; i < arr.size; i++)
+    {
+        combination.push_back(arr[i]);
+        C(arr, combination, i + 1, k);
+        combination.pop_back();
+    }
+}    
+    
+
+3) Размещение - порядок элементов важен
+A(n, k) = n! / (n-k)!
+
+void A(vector arr, vector A, vector used, int k)
+{
+    if (A.size() == k)
+    {
+        cout << arr;
+        return
+    }
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (!used[i])
+        {
+            used[i] = true;
+            A.push_back(arr[i])
+            A(arr, A, used, k)
+            used[i] = false;
+            A.pop_back()
+        }
+    }
+}    
