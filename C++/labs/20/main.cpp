@@ -4,14 +4,32 @@
 
 #include "header.h"
 #include <sstream>
+#include <string>
 
 int main()
 {
     
     std::ifstream inputFile("matrix.txt");
     std::vector<std::vector<int>> graphMatrix;
-
     std::string line;
+    std::vector<int> parameters;
+    
+    if (std::getline(inputFile, line))
+    {
+        std::stringstream ss(line);
+        int value1;
+        int value2;
+        char comma;
+        
+        ss >> value1;
+        ss >> comma;
+        ss >> value2;
+
+
+        parameters.push_back(value1);
+        parameters.push_back(value2);
+    }
+    
     while (std::getline(inputFile, line))
     {
         std::vector<int> row;
@@ -28,8 +46,8 @@ int main()
         graphMatrix.push_back(row);
     }
 
-    int startVertex = 0;
-    int dc = 4;
+    int startVertex = parameters[0];
+    int dc = parameters[1];
 
     Graph graph(graphMatrix);
     std::vector<std::vector<int>> cycles = graph.findCycles(startVertex, dc);
