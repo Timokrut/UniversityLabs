@@ -4,13 +4,28 @@
 int main()
 {
     Graph graph(5);
-    graph.addEdge(0, 1);
-    graph.addEdge(0, 2);
-    graph.addEdge(1, 2);
-    graph.addEdge(1, 3);
-    graph.addEdge(3, 4);
 
+    std::ifstream inputFile("edges.txt");
+    std::string line;
+
+    while (std::getline(inputFile, line))
+    {
+        int value;
+        char comma;
+        std::vector<int> vector;
+
+        std::stringstream ss(line);
+
+        while (ss >> value)
+        {
+            vector.push_back(value);
+            ss >> comma;
+        }
+
+        graph.addEdge(vector[0], vector[1]);
+    }
     graph.findArticulationPoints();
+    std::cout << "Saved articulation points to articulation_points.txt" << std::endl;
 
     return 0;
 }

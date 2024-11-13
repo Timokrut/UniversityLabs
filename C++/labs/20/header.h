@@ -2,6 +2,8 @@
 #include <csignal>
 #include <ostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 class Graph {
     private:

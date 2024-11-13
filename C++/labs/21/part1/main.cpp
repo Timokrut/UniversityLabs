@@ -8,40 +8,70 @@
 // pivot - элемент, вокруг которого выполняется деление массива (обычно выбирают последний) 
 
 #include "header.h"
+#include <fstream>
+#include <iostream>
+#include <ostream>
+#include <sstream>
+#include <string>
 
 int main()
 {
     Quicksort q;
 
+    std::ifstream inputFile("integers.txt");
     std::vector<Comparable*> integers;
-    integers.push_back(new Integer(3));
-    integers.push_back(new Integer(1));
-    integers.push_back(new Integer(4));
-    integers.push_back(new Integer(2));
 
-    q.quicksort(integers, 0, integers.size() - 1);
+    std::string line;
+    while (std::getline(inputFile, line))
+    {
+        int value;
+        std::stringstream ss(line);
+
+        while (ss >> value)
+            integers.push_back(new Integer(value));
+    }
+    inputFile.close();
     
-    std::cout << "Sorted integers" << std::endl;
+    q.quicksort(integers, 0, integers.size() - 1);
+
+    std::ofstream outputFile("sorted_integers.txt");
+
+    outputFile << "Sorted integers" << std::endl;
     for(int i = 0; i < integers.size(); i++)
     {
         Integer* integer = (Integer*)integers[i];
-        std::cout << integer->value << std::endl;
+        outputFile << integer->value << std::endl;
+    }
+    outputFile.close();
+    std::cout << "Saved sorted integers to sorted_integers.txt" << std::endl;
+
+    std::ifstream inputPerson("persons.txt");
+    std::vector<Comparable*> persons;
+    
+    while (std::getline(inputPerson, line))
+    {
+        std::stringstream ss(line);
+        int age;
+        std::string name;
+
+        std::getline(ss, name, ',');
+        ss >> age;
+        persons.push_back(new Person(name, age));
     }
 
-    std::vector<Comparable*> persons;
-    persons.push_back(new Person("Bob", 31));
-    persons.push_back(new Person("Jill", 18));
-    persons.push_back(new Person("Josh", 27));
-    persons.push_back(new Person("Donald", 70));
-
+    inputPerson.close();
     q.quicksort(persons, 0, persons.size() - 1);
 
-    std::cout << "Sorted persons" << std::endl;
+    std::ofstream output("sorted_persons.txt");
+
+    output << "Sorted persons" << std::endl;
     for(int i = 0; i < persons.size(); i++)
     {
         Person* person = (Person*)persons[i];
-        std::cout << person->name << " " << person->age << std::endl;
+        output << person->name << " " << person->age << std::endl;
     }
+    output.close();
+    std::cout << "Saved sorted persons to sorted_persons.txt";
 
     return 0;
 }

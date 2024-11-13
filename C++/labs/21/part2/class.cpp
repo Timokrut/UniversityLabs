@@ -1,4 +1,6 @@
 #include "header.h" 
+#include <fstream>
+#include <ostream>
 
 void Graph::dfs(int u, int parent, int& time)
 {
@@ -40,10 +42,13 @@ void Graph::findArticulationPoints()
         if (!visited[i])
             dfs(i, -1, time);
 
-    std::cout << "Articulation Points: ";
+    std::ofstream outputFile("articulation_points.txt");
+
+    outputFile << "Articulation Points: ";
     for (int i = 0; i < V; i++)
         if (isArticulation[i])
-            std::cout << i << " ";
+            outputFile << i << " ";
     
-    std::cout << std::endl;
+    outputFile << std::endl;
+    outputFile.close();
 }
