@@ -17,7 +17,6 @@ void FileManager::writeFile(const std::string& filename, const std::string& data
         throw std::runtime_error("Unable to open file for writing");
     }
     
-    // Write the encoded binary data to the file
     file.write(data.data(), data.size());
     
     if (!file) {

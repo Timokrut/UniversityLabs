@@ -55,9 +55,7 @@ void ShannonFanoTree::generateCodes(const std::string& data) {
     }
 
     std::vector<std::pair<char, int>> frequencies(frequency_map.begin(), frequency_map.end());
-    std::sort(frequencies.begin(), frequencies.end(), [](auto& a, auto& b) {
-        return a.second > b.second;
-    });
+    std::sort(frequencies.begin(), frequencies.end(), ShannonFanoTree::compare); 
 
     std::cout << "Sorted Frequencies: " << std::endl;
     for (const auto& pair : frequencies) {
@@ -68,6 +66,9 @@ void ShannonFanoTree::generateCodes(const std::string& data) {
     buildTree(frequencies, 0, frequencies.size() - 1, "");
 }
 
+bool ShannonFanoTree::compare(const std::pair<char, int>& a, const std::pair<char, int>& b) {
+    return a.second > b.second;
+}
 
 
 std::string ShannonFanoTree::encode(const std::string& data) {

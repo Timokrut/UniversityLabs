@@ -15,6 +15,7 @@ private:
     std::unordered_map<std::string, char> decoder;
 
     void buildTree(const std::vector<std::pair<char, int>>& frequencies, int start, int end, std::string code);
+    static bool compare(const std::pair<char, int>& a, const std::pair<char, int>& b);
 
 public:
     void generateCodes(const std::string& data);
