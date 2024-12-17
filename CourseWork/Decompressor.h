@@ -1,12 +1,17 @@
-#pragma once
+#ifndef DECOMPRESSOR_H
+#define DECOMPRESSOR_H
 
-#include "ShannonFanoTree.h"
-#include "FileManager.h"
+#include <string>
+#include <unordered_map>
 
 class Decompressor {
-private:
-    ShannonFanoTree tree;
-
 public:
-    void decompress(const std::string& input_file, const std::string& output_file);
+    void loadDictionary(const std::string &fileName);
+    std::string decode(const std::string &encodedText);
+
+private:
+    std::unordered_map<std::string, std::string> dictionary;
+    std::unordered_map<std::string, std::string> reverseDictionary;
 };
+
+#endif // DECOMPRESSOR_H

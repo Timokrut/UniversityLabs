@@ -1,12 +1,16 @@
-#pragma once
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
 #include <string>
-#include <fstream>
-#include <stdexcept>
-
 
 class FileManager {
 public:
-    static std::string readFile(const std::string& filename);
-    static void writeFile(const std::string& filename, const std::string& data);
+    static void writeEncodedBinary(const std::string &encodedText, const std::string &fileName);
+    static std::string readEncodedBinary(const std::string &fileName);
+    static std::string readFile(const std::string &fileName);
+    static void writeBinaryFile(const std::string &content, const std::string &fileName);
+    std::string readBinaryFile(const std::string &fileName);
+    void writeFile(const std::string &content, const std::string &fileName);
 };
+
+#endif // FILEMANAGER_H

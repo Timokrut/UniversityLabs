@@ -1,18 +1,40 @@
 #include "Decompressor.h"
+#include <fstream>
 
-void Decompressor::decompress(const std::string& input_file, const std::string& output_file) {
-    std::string file_content = FileManager::readFile(input_file);
-    size_t separator_pos = file_content.find('\n');
+void Decompressor::loadDictionary(const std::string &fileName) {
+    std::ifstream file(fileName);
+    if (!file) return;
 
-    std::string metadata = file_content.substr(0, separator_pos);
-    std::cout << "Read metadata: " << metadata << std::endl; 
-    
-    std::string encoded_data = file_content.substr(separator_pos + 1);
-    std::cout << "Read encoded_data: " << encoded_data << std::endl; 
+    dictionary.clear();
+    std::string character;
+    std::string code;
+    while (file >> character >> code) {
+        dictionary[character] = code;
+    }
+    file.close();
+}
 
-    tree.buildTreeFromMetadata(metadata);
+std::string Decompressor::decode(const std::string &encodedText) {
+    std::string decodedText;
+    std::string buffer;
 
-    std::string decoded_data = tree.decode(encoded_data);
+    for (const auto &pair : dictionary) {
+        reverseDictionary[pair.second] = pair.first;
+    }
 
-    FileManager::writeFile(output_file, decoded_data);
+    for (char bit : encodedText) {
+        buffer += bit;
+        if (reverseDictionary.count(buffer)) {
+            std::string decodedChar = reverseDictionary.at(buffer);
+            if (decodedChar == "\\x20") {
+                decodedText += ' ';
+            } else if (decodedChar == "\\n") {
+                decodedText += '\n';
+            } else {
+                decodedText += decodedChar[0];
+            }
+            buffer.clear();
+        }
+    }
+    return decodedText;
 }
