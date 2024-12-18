@@ -1,9 +1,20 @@
+/**
+ * @file main.cpp
+ * @brief Entry point of the program, handling command-line arguments for compression and decompression.
+ */
+
 #include <iostream>
 #include <fstream>
 #include "Compressor.h"
 #include "Decompressor.h"
 #include "FileManager.h"
 
+/**
+ * @brief Main function to compress or decompress files based on command-line arguments.
+ * @param argc The number of command-line arguments.
+ * @param argv The command-line arguments.
+ * @return Exit code of the program.
+ */
 int main(int argc, char* argv[]) {
     if (argc < 4) {
         std::cerr << "Usage: <encode|decode> <input_file> <output_file>" << std::endl;

@@ -1,7 +1,17 @@
+/**
+ * @file FileManager.cpp
+ * @brief Implementation of the FileManager class.
+ */
+
 #include "FileManager.h"
 #include <fstream>
 #include <iostream>
 
+/**
+ * @brief Writes encoded binary data to a file.
+ * @param encodedText The binary data represented as a string of bits.
+ * @param fileName The name of the file to write to.
+ */
 void FileManager::writeEncodedBinary(const std::string &encodedText, const std::string &fileName) {
     std::ofstream outputFile(fileName, std::ios::binary);
     if (!outputFile) {
@@ -31,6 +41,11 @@ void FileManager::writeEncodedBinary(const std::string &encodedText, const std::
     outputFile.close();
 }
 
+/**
+ * @brief Reads binary data from a file and returns it as a string of bits.
+ * @param fileName The name of the file to read from.
+ * @return A string containing the binary data.
+ */
 std::string FileManager::readEncodedBinary(const std::string &fileName) {
     std::ifstream inputFile(fileName, std::ios::binary);
     if (!inputFile) {
@@ -51,6 +66,11 @@ std::string FileManager::readEncodedBinary(const std::string &fileName) {
     return encodedText;
 }
 
+/**
+ * @brief Reads the contents of a text file.
+ * @param fileName The name of the file to read from.
+ * @return A string containing the file's contents.
+ */
 std::string FileManager::readFile(const std::string &fileName) {
     std::ifstream inputFile(fileName);
     if (!inputFile) {
@@ -63,6 +83,11 @@ std::string FileManager::readFile(const std::string &fileName) {
     return content;
 }
 
+/**
+ * @brief Writes encoded binary data to a file.
+ * @param content The binary data represented as a string of bits.
+ * @param fileName The name of the file to write to.
+ */
 void FileManager::writeBinaryFile(const std::string &encodedText, const std::string &fileName) {
     std::ofstream outputFile(fileName, std::ios::binary);
     if (!outputFile) {
@@ -91,6 +116,12 @@ void FileManager::writeBinaryFile(const std::string &encodedText, const std::str
 
     outputFile.close();
 }
+
+/**
+ * @brief Reads binary data from a file and returns it as a string of bits.
+ * @param fileName The name of the file to read from.
+ * @return A string containing the binary data.
+ */
 std::string FileManager::readBinaryFile(const std::string &fileName) {
     std::ifstream inputFile(fileName, std::ios::binary);
     if (!inputFile) {
@@ -111,6 +142,11 @@ std::string FileManager::readBinaryFile(const std::string &fileName) {
     return encodedText;
 }
 
+/**
+ * @brief Writes plain text to a file.
+ * @param content The text content to write.
+ * @param fileName The name of the file to write to.
+ */
 void FileManager::writeFile(const std::string &content, const std::string &fileName) {
     std::ofstream outputFile(fileName);
     if (!outputFile) {
