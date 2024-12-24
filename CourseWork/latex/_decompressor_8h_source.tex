@@ -1,0 +1,24 @@
+\doxysection{Decompressor.\+h}
+\hypertarget{_decompressor_8h_source}{}\label{_decompressor_8h_source}\mbox{\hyperlink{_decompressor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ DECOMPRESSOR\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ DECOMPRESSOR\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_decompressor}{Decompressor}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_decompressor_a76e0eefb1cc450c50df04c2b808868d1}{loadDictionary}}(\textcolor{keyword}{const}\ std::string\ \&fileName);}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ std::string\ \mbox{\hyperlink{class_decompressor_a5945191fe81a40cb57c69c8914284071}{decode}}(\textcolor{keyword}{const}\ std::string\ \&encodedText);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ std::unordered\_map<std::string,\ std::string>\ dictionary;\ }
+\DoxyCodeLine{00044\ \ \ \ \ std::unordered\_map<std::string,\ std::string>\ reverseDictionary;\ }
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DECOMPRESSOR\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,146 @@
+\doxysection{File\+Manager Class Reference}
+\hypertarget{class_file_manager}{}\label{class_file_manager}\index{FileManager@{FileManager}}
+
+
+Provides utility methods for reading and writing files in text or binary format.  
+
+
+
+
+{\ttfamily \#include $<$File\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_file_manager_acadb36ba8378d0a0cfc483f72af339e3}{read\+Binary\+File}} (const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Reads binary data from a file and returns it as a string of bits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_file_manager_a6bfd1eb1bf7e26b9004013d84b76a9b5}{write\+File}} (const std\+::string \&content, const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Writes plain text to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_file_manager_a8bae1294e84354c87b7ea3dfe6f772a9}{write\+Encoded\+Binary}} (const std\+::string \&encoded\+Text, const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Writes encoded binary data to a file. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_file_manager_ae4a18b5abb6537abf438c6233e574788}{read\+Encoded\+Binary}} (const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Reads binary data from a file and returns it as a string of bits. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_file_manager_aa22780b564c132fbc22465d1362933e1}{read\+File}} (const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Reads the contents of a text file. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_file_manager_a9b293c7d2e11fe585c671946bdcb5b38}{write\+Binary\+File}} (const std\+::string \&content, const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Writes encoded binary data to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides utility methods for reading and writing files in text or binary format. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_file_manager_acadb36ba8378d0a0cfc483f72af339e3}\index{FileManager@{FileManager}!readBinaryFile@{readBinaryFile}}
+\index{readBinaryFile@{readBinaryFile}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{readBinaryFile()}{readBinaryFile()}}
+{\footnotesize\ttfamily \label{class_file_manager_acadb36ba8378d0a0cfc483f72af339e3} 
+std\+::string File\+Manager\+::read\+Binary\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Reads binary data from a file and returns it as a string of bits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the binary data. 
+\end{DoxyReturn}
+\Hypertarget{class_file_manager_ae4a18b5abb6537abf438c6233e574788}\index{FileManager@{FileManager}!readEncodedBinary@{readEncodedBinary}}
+\index{readEncodedBinary@{readEncodedBinary}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{readEncodedBinary()}{readEncodedBinary()}}
+{\footnotesize\ttfamily \label{class_file_manager_ae4a18b5abb6537abf438c6233e574788} 
+std\+::string File\+Manager\+::read\+Encoded\+Binary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads binary data from a file and returns it as a string of bits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the binary data. 
+\end{DoxyReturn}
+\Hypertarget{class_file_manager_aa22780b564c132fbc22465d1362933e1}\index{FileManager@{FileManager}!readFile@{readFile}}
+\index{readFile@{readFile}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{readFile()}{readFile()}}
+{\footnotesize\ttfamily \label{class_file_manager_aa22780b564c132fbc22465d1362933e1} 
+std\+::string File\+Manager\+::read\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads the contents of a text file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the file\textquotesingle{}s contents. 
+\end{DoxyReturn}
+\Hypertarget{class_file_manager_a9b293c7d2e11fe585c671946bdcb5b38}\index{FileManager@{FileManager}!writeBinaryFile@{writeBinaryFile}}
+\index{writeBinaryFile@{writeBinaryFile}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{writeBinaryFile()}{writeBinaryFile()}}
+{\footnotesize\ttfamily \label{class_file_manager_a9b293c7d2e11fe585c671946bdcb5b38} 
+void File\+Manager\+::write\+Binary\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{encoded\+Text}{, }\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Writes encoded binary data to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The binary data represented as a string of bits. \\
+\hline
+{\em file\+Name} & The name of the file to write to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_file_manager_a8bae1294e84354c87b7ea3dfe6f772a9}\index{FileManager@{FileManager}!writeEncodedBinary@{writeEncodedBinary}}
+\index{writeEncodedBinary@{writeEncodedBinary}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{writeEncodedBinary()}{writeEncodedBinary()}}
+{\footnotesize\ttfamily \label{class_file_manager_a8bae1294e84354c87b7ea3dfe6f772a9} 
+void File\+Manager\+::write\+Encoded\+Binary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{encoded\+Text}{, }\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Writes encoded binary data to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em encoded\+Text} & The binary data represented as a string of bits. \\
+\hline
+{\em file\+Name} & The name of the file to write to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_file_manager_a6bfd1eb1bf7e26b9004013d84b76a9b5}\index{FileManager@{FileManager}!writeFile@{writeFile}}
+\index{writeFile@{writeFile}!FileManager@{FileManager}}
+\doxysubsubsection{\texorpdfstring{writeFile()}{writeFile()}}
+{\footnotesize\ttfamily \label{class_file_manager_a6bfd1eb1bf7e26b9004013d84b76a9b5} 
+void File\+Manager\+::write\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{content}{, }\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Writes plain text to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The text content to write. \\
+\hline
+{\em file\+Name} & The name of the file to write to. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_file_manager_8h}{File\+Manager.\+h}}\item 
+\mbox{\hyperlink{_file_manager_8cpp}{File\+Manager.\+cpp}}\end{DoxyCompactItemize}
