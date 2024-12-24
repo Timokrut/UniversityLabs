@@ -2,7 +2,6 @@
  * @file Compressor.cpp
  * @brief Implementation of the Compressor class.
  */
-
 #include "Compressor.h"
 #include <algorithm>
 #include <fstream>
