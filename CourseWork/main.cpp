@@ -3,8 +3,9 @@
  * @brief Entry point of the program, handling command-line arguments for compression and decompression.
  */
 
+#include <ctime>
 #include <iostream>
-#include <fstream>
+#include <chrono>
 #include "Compressor.h"
 #include "Decompressor.h"
 #include "FileManager.h"
@@ -29,11 +30,20 @@ int main(int argc, char* argv[]) {
     if (mode == "encode") {
         FileManager fileManager;
         std::string text = fileManager.readFile(inputFileName);
-
-        Compressor compressor;
-        compressor.analyzeText(text);
         
+        Compressor compressor;
+        
+        auto start = std::chrono::high_resolution_clock::now();
+
+        compressor.analyzeText(text);
+       
         std::string encodedText = compressor.encode(text);
+
+        auto end = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        std::cout << "Time taken for encode: " << duration << " ms" << std::endl;
+
         compressor.saveDictionary(dictionaryFileName);
         fileManager.writeBinaryFile(encodedText, outputFileName);
 
