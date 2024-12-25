@@ -1,0 +1,88 @@
+\doxysection{Compressor Class Reference}
+\hypertarget{classCompressor}{}\label{classCompressor}\index{Compressor@{Compressor}}
+
+
+Implements the Shannon-\/\+Fano compression algorithm.  
+
+
+
+
+{\ttfamily \#include $<$Compressor.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classCompressor_a900be65809f4441d172b4793bd002eb2}{analyze\+Text}} (const std\+::string \&text)
+\begin{DoxyCompactList}\small\item\em Analyzes the given text to determine character frequencies and generate codes. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classCompressor_a2e51c81e358eda83307facb868fe6bf8}{encode}} (const std\+::string \&text)
+\begin{DoxyCompactList}\small\item\em Encodes the given text using the generated character codes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCompressor_a837cfbb01616a38b2b577a0347820d85}{save\+Dictionary}} (const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Saves the generated dictionary to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the Shannon-\/\+Fano compression algorithm. 
+
+The \doxylink{classCompressor}{Compressor} class provides functionality for analyzing text, generating codes for characters based on frequency, and encoding text using the Shannon-\/\+Fano algorithm. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCompressor_a900be65809f4441d172b4793bd002eb2}\index{Compressor@{Compressor}!analyzeText@{analyzeText}}
+\index{analyzeText@{analyzeText}!Compressor@{Compressor}}
+\doxysubsubsection{\texorpdfstring{analyzeText()}{analyzeText()}}
+{\footnotesize\ttfamily \label{classCompressor_a900be65809f4441d172b4793bd002eb2} 
+void Compressor\+::analyze\+Text (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Analyzes the given text to determine character frequencies and generate codes. 
+
+This function processes the input text to compute the frequency of each character and constructs codes for the characters based on their frequencies.
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text to analyze. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCompressor_a2e51c81e358eda83307facb868fe6bf8}\index{Compressor@{Compressor}!encode@{encode}}
+\index{encode@{encode}!Compressor@{Compressor}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily \label{classCompressor_a2e51c81e358eda83307facb868fe6bf8} 
+std\+::string Compressor\+::encode (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Encodes the given text using the generated character codes. 
+
+This function encodes the input text by replacing each character with its corresponding code from the generated dictionary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text to encode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The encoded text. 
+\end{DoxyReturn}
+\Hypertarget{classCompressor_a837cfbb01616a38b2b577a0347820d85}\index{Compressor@{Compressor}!saveDictionary@{saveDictionary}}
+\index{saveDictionary@{saveDictionary}!Compressor@{Compressor}}
+\doxysubsubsection{\texorpdfstring{saveDictionary()}{saveDictionary()}}
+{\footnotesize\ttfamily \label{classCompressor_a837cfbb01616a38b2b577a0347820d85} 
+void Compressor\+::save\+Dictionary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Saves the generated dictionary to a file. 
+
+This function saves the character-\/to-\/code mappings to a file, so they can be used for decompression later.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file to save the dictionary. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Compressor_8h}{Compressor.\+h}}\item 
+\mbox{\hyperlink{Compressor_8cpp}{Compressor.\+cpp}}\end{DoxyCompactItemize}

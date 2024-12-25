@@ -1,0 +1,33 @@
+\doxysection{Compressor.\+h}
+\hypertarget{Compressor_8h_source}{}\label{Compressor_8h_source}\mbox{\hyperlink{Compressor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ COMPRESSOR\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ COMPRESSOR\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Symbol_8h}{Symbol.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCompressor}{Compressor}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCompressor_a900be65809f4441d172b4793bd002eb2}{analyzeText}}(\textcolor{keyword}{const}\ std::string\ \&text);}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ std::string\ \mbox{\hyperlink{classCompressor_a2e51c81e358eda83307facb868fe6bf8}{encode}}(\textcolor{keyword}{const}\ std::string\ \&text);}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCompressor_a837cfbb01616a38b2b577a0347820d85}{saveDictionary}}(\textcolor{keyword}{const}\ std::string\ \&fileName);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \ \ std::vector<Symbol>\ symbols;\ }
+\DoxyCodeLine{00056\ \ \ \ \ std::unordered\_map<std::string,\ std::string>\ dictionary;\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ buildCodes(\textcolor{keywordtype}{int}\ start,\ \textcolor{keywordtype}{int}\ end);}
+\DoxyCodeLine{00068\ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ buildDictionaries();}
+\DoxyCodeLine{00075\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compareFrequency(\textcolor{keyword}{const}\ \mbox{\hyperlink{classSymbol}{Symbol}}\ \&a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSymbol}{Symbol}}\ \&b);}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ COMPRESSOR\_H}}
+
+\end{DoxyCode}

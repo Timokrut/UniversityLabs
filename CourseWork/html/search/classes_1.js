@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['decompressor_0',['Decompressor',['../class_decompressor.html',1,'']]]
+  ['decompressor_0',['Decompressor',['../classDecompressor.html',1,'']]]
 ];

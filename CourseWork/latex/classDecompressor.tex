@@ -1,0 +1,69 @@
+\doxysection{Decompressor Class Reference}
+\hypertarget{classDecompressor}{}\label{classDecompressor}\index{Decompressor@{Decompressor}}
+
+
+Implements the decompression logic for Shannon-\/\+Fano compressed files.  
+
+
+
+
+{\ttfamily \#include $<$Decompressor.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classDecompressor_a76e0eefb1cc450c50df04c2b808868d1}{load\+Dictionary}} (const std\+::string \&file\+Name)
+\begin{DoxyCompactList}\small\item\em Loads the dictionary from a file. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classDecompressor_a5945191fe81a40cb57c69c8914284071}{decode}} (const std\+::string \&encoded\+Text)
+\begin{DoxyCompactList}\small\item\em Decodes an encoded string using the loaded dictionary. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the decompression logic for Shannon-\/\+Fano compressed files. 
+
+The \doxylink{classDecompressor}{Decompressor} class provides functionality to load a dictionary of character codes and decode an encoded string based on the Shannon-\/\+Fano algorithm. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDecompressor_a5945191fe81a40cb57c69c8914284071}\index{Decompressor@{Decompressor}!decode@{decode}}
+\index{decode@{decode}!Decompressor@{Decompressor}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily \label{classDecompressor_a5945191fe81a40cb57c69c8914284071} 
+std\+::string Decompressor\+::decode (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{encoded\+Text}{}\end{DoxyParamCaption})}
+
+
+
+Decodes an encoded string using the loaded dictionary. 
+
+This function decodes the given encoded text into its original form by matching the encoded bits with entries in the reverse dictionary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em encoded\+Text} & The encoded text to decode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The decoded text. 
+\end{DoxyReturn}
+\Hypertarget{classDecompressor_a76e0eefb1cc450c50df04c2b808868d1}\index{Decompressor@{Decompressor}!loadDictionary@{loadDictionary}}
+\index{loadDictionary@{loadDictionary}!Decompressor@{Decompressor}}
+\doxysubsubsection{\texorpdfstring{loadDictionary()}{loadDictionary()}}
+{\footnotesize\ttfamily \label{classDecompressor_a76e0eefb1cc450c50df04c2b808868d1} 
+void Decompressor\+::load\+Dictionary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Loads the dictionary from a file. 
+
+This function reads the character-\/to-\/code mappings from a file and stores them in the dictionary for decoding.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & The name of the file containing the dictionary. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Decompressor_8h}{Decompressor.\+h}}\item 
+\mbox{\hyperlink{Decompressor_8cpp}{Decompressor.\+cpp}}\end{DoxyCompactItemize}
