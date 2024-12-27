@@ -1,7 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage{times}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage[T2A,T1]{fontenc}
+\usepackage[caption]{caption}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -9,7 +10,7 @@
 \usepackage{stmaryrd}
 \usepackage[russian]{babel}
 \usepackage{geometry}
-\usepackage{newtxtext,newtxmath}
+\usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage[pdfborder={0 0 0}]{hyperref}
@@ -31,6 +32,7 @@
 % Междустрочный интервал
 \renewcommand{\baselinestretch}{1.5}
 
+\renewcommand{\figurename}{Рисунок}
 
 \begin{document}
 
@@ -51,7 +53,7 @@
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Доцент к.т.н. & 25.12.2024 & Е. М. Линский\\
+Доцент к.т.н. & 27.12.2024 & Е. М. Линский\\
 \hline
 должность, уч. степень, звание & подпись, дата & инициалы, фамилия\\
 \hline
@@ -72,7 +74,7 @@
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Студент гр. № & 2352 & 25.12.2024& Т. А. Потапов\\
+Студент гр. № & 2352 & 27.12.2024& Т. А. Потапов\\
 \hline
 & & подпись, дата & инициалы, фамилия \\
 \hline
@@ -118,6 +120,8 @@
     \item К первой группе добавляется бит 0, ко второй — 1.
     \item Процесс повторяется рекурсивно для каждой группы, пока все символы не будут закодированы.
 \end{enumerate}
+
+\captionsetup[figure]{labelfont=bf, labelsep=endash}
 
 \subsection{Подробное описание алгоритма}
 \begin{enumerate}
@@ -290,7 +294,7 @@
 % Список литературы
 \section{\textbf{СПИСОК ЛИТЕРАТУРЫ}}
 \begin{enumerate}
-    \item М.. Н. Аршинов, л. Е. Садовский, Коды и математика (рассказы о кодировании).- М.: Наука, Главная редакция физико-математической литературы, 1983. - 144 с.
+    \item М. Н. Аршинов, Л. Е. Садовский, Коды и математика (рассказы о кодировании).- М.: Наука, Главная редакция физико-математической литературы, 1983. - 144 с.
     \item Алгоритм Шеннона-Фано. // Алгоритмы: электронные текстовые данные, URL: \url{https://habr.com/ru/articles/137766/}, Год публикации: 2012. Режим доступа: открытый. Дата обращения к источнику: 18.12.2024
 \end{enumerate}
 
