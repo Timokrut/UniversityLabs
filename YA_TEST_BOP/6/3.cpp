@@ -4,7 +4,7 @@
 #include<iostream>
 #include<vector>
 
-bool find_expression(int index, std::vector<int>& numbers, int currentSum, int targetSum, std::vector<char>& operators) {
+bool find_expression(int index, std::vector<int> numbers, int currentSum, int targetSum, std::vector<char> operators) {
     if (index == numbers.size()) {
         return currentSum == targetSum;
     }
