@@ -5,7 +5,7 @@
 #include <string>
 
 void gen_numbers(int N, int M, std::string current, std::vector<std::string>& results) {
-    if (current.size() == N + M) {
+    if (N == 0 && M == 0) {
         results.push_back(current);
         return;
     }
