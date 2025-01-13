@@ -6,11 +6,8 @@
 
 void generatePartitions(int N, int K, std::vector<int>& currentPartition) {
     if (N == 0) {
-        for (size_t i = 0; i < currentPartition.size(); ++i) {
-            std::cout << currentPartition[i];
-            if (i < currentPartition.size() - 1) {
-                std::cout << " + ";
-            }
+        for (auto el : currentPartition) {
+            std::cout << el << " ";
         }
         std::cout << std::endl;
         return;
