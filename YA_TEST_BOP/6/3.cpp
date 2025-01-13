@@ -4,24 +4,24 @@
 #include<iostream>
 #include<vector>
 
-bool find_expression(int index, std::vector<int> numbers, int currentSum, int targetSum, std::vector<char> operators) {
+bool find_expression(int index, std::vector<int>& numbers, int currentSum, int targetSum, std::vector<char>& operators) {
     if (index == numbers.size()) {
         return currentSum == targetSum;
     }
 
-    operators[index] = '+';
     if (find_expression(index + 1, numbers, currentSum + numbers[index], targetSum, operators)) {
+        operators[index] = '+';
         return true;
     }
 
-    operators[index] = '-';
     if (find_expression(index + 1, numbers, currentSum - numbers[index], targetSum, operators)) {
+        operators[index] = '-';
         return true;
     }    
 
     return false;
 }
-void printExpression(const std::vector<int>& numbers, const std::vector<char>& operators) {
+void printExpression(const std::vector<int> numbers, const std::vector<char> operators) {
     for (size_t i = 0; i < numbers.size(); ++i) {
         if (i > 0) {
             std::cout << " " << operators[i] << " ";
