@@ -1,9 +1,9 @@
-package matrix;
+package org.mycompany.matrixlib;
 
-import exceptions.MatrixException;
+import org.mycompany.matrixlib.exceptions.MatrixException;
 
 public final class SquareMatrix extends Matrix {
-    public SquareMatrix(int size) {
+    public SquareMatrix(int size) throws MatrixException {
         super(size, size);
         for (int i = 0; i < size; i++) {
             this.arr[i][i] = 1;
@@ -11,7 +11,7 @@ public final class SquareMatrix extends Matrix {
     }
 
     @Override
-    public SquareMatrix sum(Matrix other) {
+    public SquareMatrix sum(Matrix other) throws MatrixException {
         if (!(other instanceof SquareMatrix) || this.rows != other.rows) {
             throw new MatrixException("Both matrices must be square and of the same size for addition");
         }

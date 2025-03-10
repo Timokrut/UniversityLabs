@@ -1,6 +1,6 @@
-package matrix;
+package org.mycompany.matrixlib;
 
-import exceptions.MatrixException;
+import org.mycompany.matrixlib.exceptions.MatrixException;
 
 public class Matrix {
     protected final int[][] arr;
