@@ -45,20 +45,19 @@ public class Main {
             System.out.println("\nmatrix[1][3]");
             System.out.println(matrix.getElement(1, 3));
 
-            // System.out.println("\nmatrix[100][100]");
-            // System.out.println(matrix.getElement(100, 100));
 
-            Matrix matrix2 = new Matrix(4, 4);
-            SquareMatrix matrix3 = new SquareMatrix(4); 
-           
+            Matrix BaseMatrix = new Matrix(4, 4);
 
-            matrix.sum(matrix2);
-            matrix.sum(matrix3);
+            SquareMatrix SquareMatrix = new SquareMatrix(4); 
 
-            matrix.product(matrix2);
-            matrix.product(matrix3);
+            matrix.sum(BaseMatrix); // TwoOfFourMatrix2 + Matrix
+            matrix.product(BaseMatrix); // TwoOfFourMatrix2 * Matrix
+            matrix.sum(SquareMatrix); // TwoOfFourMatrix2 + SquareMatrix
+            matrix.product(SquareMatrix); // TwoOfFourMatrix2 * SquareMatrix
 
-
+            BaseMatrix.product(SquareMatrix); // Matrix + SquareMatrix 
+            BaseMatrix.sum(SquareMatrix);     // Matrix * SquareMatrix
+            
         } catch (MatrixException e) {
             System.out.println("Error: " + e.getMessage());
         }

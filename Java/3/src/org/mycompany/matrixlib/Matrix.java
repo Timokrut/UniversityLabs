@@ -5,7 +5,7 @@ import org.mycompany.matrixlib.exceptions.MatrixException;
 public class Matrix {
     protected final int[][] arr;
     protected final int rows;
-    protected final int columns;
+    protected int columns;
 
     public Matrix(int rows, int columns) throws MatrixException {
         if (rows <= 0 || columns <= 0) {
@@ -38,7 +38,7 @@ public class Matrix {
         Matrix result = new Matrix(rows, columns);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                result.arr[i][j] = arr[i][j] + other.arr[i][j];
+                result.setElement(i, j, this.getElement(i, j) + other.getElement(i, j));
             }
         }
 
@@ -52,9 +52,11 @@ public class Matrix {
         Matrix result = new Matrix(this.rows, other.columns);
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < other.columns; j++) {
+                int sum = 0;
                 for (int k = 0; k < this.columns; k++) {
-                    result.arr[i][j] += arr[i][k] * other.arr[k][j];
+                    sum += this.getElement(i, k) * other.getElement(k, j);
                 }
+                result.setElement(i, j, sum);
             }
         }
         return result;
@@ -74,28 +76,35 @@ public class Matrix {
         if (this.rows != other.rows || this.columns != other.columns) {
             return false;
         }        
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (this.arr[i][j] != other.arr[i][j]) {
-                    return false;
+    
+        try {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    if (this.getElement(i, j) != other.getElement(i, j)) {
+                        return false;
+                    }
                 }
             }
+            return true;
+        } catch (MatrixException e) {
+            throw new RuntimeException("Unexpected error in getElement/setElement");
         }
-        return true;
     }
 
     @Override
     public final String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
-                sb.append(arr[row][col]).append(" ");
+        try {
+            for (int row = 0; row < this.rows; row++) {
+                for (int col = 0; col < this.columns; col++) {
+                    sb.append(this.getElement(row, col)).append(" ");
+                }
+                sb.append("\n");
             }
-            sb.append("\n");
-        }
-
-        return sb.toString(); 
+            return sb.toString(); 
+        } catch (MatrixException e) {
+            throw new RuntimeException("Unexpected error in getElement/setElement");
+        } 
     } 
 
 }
