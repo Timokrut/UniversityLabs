@@ -49,6 +49,7 @@ public class SortedIntegerList {
             return false;
         }
         SortedIntegerList other = (SortedIntegerList) obj;
+
         return this.list.equals(other.list) && this.allowDuplicates == other.allowDuplicates;
     }
 

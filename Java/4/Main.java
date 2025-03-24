@@ -1,13 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        SortedIntegerList list1 = new SortedIntegerList(true); // Разрешены дубликаты
+        SortedIntegerList list1 = new SortedIntegerList(true);
         list1.add(5);
         list1.add(3);
         list1.add(8);
         list1.add(3);
         System.out.println("List1: " + list1); // [3, 3, 5, 8]
 
-        SortedIntegerList list2 = new SortedIntegerList(false); // Дубликаты запрещены
+        SortedIntegerList list2 = new SortedIntegerList(false);
         list2.add(5);
         list2.add(3);
         list2.add(8);
