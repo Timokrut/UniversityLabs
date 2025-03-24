@@ -5,14 +5,11 @@ import org.mycompany.matrixlib.exceptions.MatrixException;
 
 public final class TwoOfFourMatrix2 extends Matrix {
     public TwoOfFourMatrix2(int[][] fullMatrix) throws MatrixException {
-        super(fullMatrix.length, fullMatrix[0].length / 2); 
-        columns *= 2;
-        if (rows % 2 != 0 || columns % 2 != 0) {
-            throw new MatrixException("Matrix dimensions must be even");
-        }
+        super(fullMatrix.length, (fullMatrix[0].length + 1) / 2); 
+        columns = fullMatrix[0].length;
 
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns / 2; j++) {
+            for (int j = 0; j < (columns + 1) / 2; j++) {
                 arr[i][j] = fullMatrix[i][j];
             }
         }
@@ -24,8 +21,8 @@ public final class TwoOfFourMatrix2 extends Matrix {
             throw new MatrixException("Index out of bounds");
         }
 
-        if (column >= columns / 2) {
-            return arr[row][column - columns / 2];
+        if (column >= (columns + 1) / 2) {
+            return arr[row][column - (columns + 1) / 2];
         }
 
         return arr[row][column];
@@ -37,8 +34,8 @@ public final class TwoOfFourMatrix2 extends Matrix {
             throw new MatrixException("Index out of bounds");
         }
 
-        if (column >= columns / 2) {
-            arr[row][column - columns / 2] = value;
+        if (column >= (columns + 1) / 2) {
+            arr[row][column - (columns + 1) / 2] = value;
         } else {
             arr[row][column] = value;
         }
