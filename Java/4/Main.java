@@ -41,5 +41,27 @@ public class Main {
         System.out.println("List1 equals List3: " + list1.equals(list3));
         System.out.println("List2 equals List4: " + list2.equals(list4));
         System.out.println("List3 equals List4: " + list3.equals(list4));
+
+       
+        SortedIntegerList list11 = new SortedIntegerList(true);
+        list11.add(2);
+        list11.add(3);
+        list11.add(5);
+        list11.add(8);
+        list11.add(99);
+
+        SortedIntegerList list33 = new SortedIntegerList(true);
+        list33.add(0);
+        list33.add(3);
+        list33.add(5);
+        list33.add(5);
+        list33.add(8);
+        list33.add(11);
+
+        System.out.println("List1: " + list11);
+        System.out.println("List2: " + list33);
+
+        SortedIntegerList intersection = list11.intersect(list33);
+        System.out.println("Intersection: " + intersection); 
     }
 }
