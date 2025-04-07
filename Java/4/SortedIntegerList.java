@@ -1,9 +1,9 @@
 import java.util.LinkedList;
-import java.util.Iterator;
+import java.util.ListIterator;
 
-public class SortedIntegerList { 
-    private LinkedList<Integer> list;
-    private boolean allowDuplicates;
+public class SortedIntegerList {
+    private final LinkedList<Integer> list;
+    private final boolean allowDuplicates;
 
     public SortedIntegerList(boolean allowDuplicates) {
         this.list = new LinkedList<>();
@@ -11,46 +11,44 @@ public class SortedIntegerList {
     }
 
     public void add(int value) {
-        Iterator<Integer> it = list.iterator();
-        int index = 0;
+        ListIterator<Integer> it = list.listIterator();
         
         while (it.hasNext()) {
             int current = it.next();
             if (current > value) {
-                break; 
-            } 
+                it.previous(); 
+                it.add(value);
+                return;
+            }
             if (!allowDuplicates && current == value) {
                 return;
             }
-            index++;
         }
-
-        list.add(index, value);
+        it.add(value);
     }
 
     public void remove(int value) {
-        Iterator<Integer> it = list.iterator();
+        ListIterator<Integer> it = list.listIterator();
         while (it.hasNext()) {
-            int current = it.next();
-            if (current == value) {
-                it.remove();
+            if (it.next() == value) {
+                it.remove(); 
                 return;
             }
         }
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-
+        
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         SortedIntegerList other = (SortedIntegerList) obj;
 
-        return this.list.equals(other.list) && this.allowDuplicates == other.allowDuplicates;
+        return list.equals(other.list) && allowDuplicates == other.allowDuplicates;
     }
 
     @Override
