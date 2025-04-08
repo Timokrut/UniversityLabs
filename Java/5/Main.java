@@ -1,11 +1,13 @@
 public class Main {
-    public static void main(String[] args) {
-        int size = 1000;
-        int nonZeroElements = 1000;
+public static void main(String[] args) {
+        int size = 10;
+        int nonZeroElements = 10;
         
         // Create and fill usual matrices
         UsualMatrix usual1 = new UsualMatrix(size, size);
         UsualMatrix usual2 = new UsualMatrix(size, size);
+        usual1.fillRandom(nonZeroElements);
+        usual2.fillRandom(nonZeroElements);
         
         // Create and fill sparse matrices with same data
         SparseMatrix sparse1 = new SparseMatrix(size, size);
@@ -32,7 +34,5 @@ public class Main {
         IMatrix usualMult = usual1.multiply(usual2);
         IMatrix sparseMult = sparse1.multiply(sparse2);
         System.out.println("Multiplication results equal: " + usualMult.equals(sparseMult));
-
-        return; 
     }
 }
