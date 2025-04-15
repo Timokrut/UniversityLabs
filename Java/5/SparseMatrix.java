@@ -70,71 +70,86 @@ public class SparseMatrix implements IMatrix {
             res.setElement(el.row, el.col, el.value);
         }
 
-        for (int i = 0; i < this.getRows(); i++) {
-            for (int j = 0; j < this.getColumns(); j++) {
-                int otherValue = other.getElement(i, j);
-                if (otherValue != 0) {
-                    int curValue = res.getElement(i, j);
-                    res.setElement(i, j, curValue + otherValue);
+        
+        if (other instanceof SparseMatrix) {
+            SparseMatrix otherSparse = (SparseMatrix) other;
+            for (NonZeroElement el : otherSparse.elements) {
+                int current = res.getElement(el.row, el.col);
+                res.setElement(el.row, el.col, current + el.value); 
+            }
+        } else {
+            for (int i = 0; i < this.getRows(); i++) {
+                for (int j = 0; j < this.getColumns(); j++) {
+                    int otherValue = other.getElement(i, j);
+                    if (otherValue != 0) {
+                        int curValue = res.getElement(i, j);
+                        res.setElement(i, j, curValue + otherValue);
+                    }
                 }
             }
         }
+        return res;
+    }
 
+    @Override
+    public IMatrix multiply(IMatrix other) {
+        if (this.getColumns() != other.getRows()) {
+            throw new RuntimeException("Matrix dimensions must agree");
+        }
+
+        SparseMatrix res = new SparseMatrix(this.getRows(), other.getColumns());
+        
+        if (other instanceof SparseMatrix) {
+            SparseMatrix otherSparse = (SparseMatrix) other;
+            for (NonZeroElement elA : this.elements) {
+                for (NonZeroElement elB : otherSparse.elements) {
+                    if (elA.col == elB.row) {
+                        int current = res.getElement(elA.row, elB.col);
+                        res.setElement(elA.row, elB.col, current + elA.value * elB.value);
+                    }
+                }
+            }
+        } else {
+            for (NonZeroElement elA : this.elements) {
+                for (int j = 0; j < other.getColumns(); j++) {
+                    int otherVal = other.getElement(elA.col, j);
+                    if (otherVal != 0) {
+                        int current = res.getElement(elA.row, j);
+                        res.setElement(elA.row, j, current + elA.value * otherVal);
+                    }
+                }
+            }
+        }
+        
         return res;
     }
 
     @Override 
-    public IMatrix multiply(IMatrix other) {
-        if (this.getColumns() != other.getRows()) {
-            throw new RuntimeException("Matrix dimensions must agree for multipication");
-        }
-        SparseMatrix res = new SparseMatrix(this.getRows(), other.getColumns()); 
-
-        for (NonZeroElement el : elements) {
-            for (int j = 0; j < other.getColumns(); j++) {
-                int otherValue = other.getElement(el.col, j);
-                if (otherValue != 0) {
-                    int currentValue = res.getElement(el.row, j);
-                    res.setElement(el.row, j, currentValue + el.value * otherValue);
-                }
-            }
-        }
-
-        return res;
-    } 
-
-    @Override 
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        SparseMatrix other = (SparseMatrix) obj;
-
+    public boolean equals(IMatrix other) {
         if (this.getRows() != other.getRows() || this.getColumns() != other.getColumns()) {
             return false;
         }
 
-        for (NonZeroElement el : other.elements) { 
-            if (el.value - this.getElement(el.row, el.col) != 0) {
+        for (NonZeroElement el : elements) { 
+            if (el.value != other.getElement(el.row, el.col)) {
                 return false;
             } 
         }
 
-        for (NonZeroElement el : elements) { 
-            if (el.value - other.getElement(el.row, el.col) != 0) {
-                return false;
-            } 
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                if (other.getElement(i, j) != 0 && this.getElement(i, j) == 0) {
+                    return false;
+                }
+            }
         }
 
         return true;
     }
 
+    @Override
     public void fillRandom(int nonZeroElements) {
-        if (nonZeroElements > rows * cols) {
+        if (nonZeroElements > this.getRows() * this.getColumns()) {
             throw new RuntimeException("Too many non-zero elements for matrix size");
         }
 
@@ -143,16 +158,16 @@ public class SparseMatrix implements IMatrix {
         for (int n = 0; n < nonZeroElements; n++) {
             int i, j;
             do {
-                i = (int) (Math.random() * rows);
-                j = (int) (Math.random() * cols);
-            } while (getElement(i, j) != 0);
+                i = (int) (Math.random() * this.getRows());
+                j = (int) (Math.random() * this.getColumns());
+            } while (this.getElement(i, j) != 0);
             
-            setElement(i, j, (int) Math.random() * 100);
+            this.setElement(i, j, (int) (Math.random() * 1000));
         }
     }
 
     @Override 
-    public String toString(IMatrix other) {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < this.getRows(); i++) {

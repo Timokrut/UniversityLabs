@@ -65,17 +65,8 @@ public class UsualMatrix implements IMatrix {
     }
     
     @Override 
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        UsualMatrix other = (UsualMatrix) obj;
-
-        if (rows != other.getRows() || cols != other.getColumns()) {
+    public boolean equals(IMatrix other) {
+        if (this.getRows() != other.getRows() || this.getColumns() != other.getColumns()) {
             return false;
         }
 
@@ -90,10 +81,11 @@ public class UsualMatrix implements IMatrix {
         return true;
     }
 
+    @Override
     public void fillRandom(int nonZeroElements) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                data[i][j] = 0;
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                this.setElement(i, j, 0);
             }
         }
 
@@ -102,13 +94,14 @@ public class UsualMatrix implements IMatrix {
             do {
                 i = (int) (Math.random() * rows);
                 j = (int) (Math.random() * cols);
-            } while (data[i][j] != 0);
-            
-            data[i][j] = (int) Math.random() * 100;
+            } while (this.getElement(i, j) != 0);
+
+            this.setElement(i, j, (int) (Math.random() * 1000));
         }
     }
+
     @Override 
-    public String toString(IMatrix matrix) {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < this.getRows(); i++) {

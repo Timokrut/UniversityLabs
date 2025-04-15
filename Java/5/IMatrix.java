@@ -5,6 +5,7 @@ public interface IMatrix {
     void setElement(int row, int col, int val);
     IMatrix add(IMatrix other);
     IMatrix multiply(IMatrix other);
-    boolean equals(Object obj);
-    String toString(IMatrix matrix);
+    boolean equals(IMatrix matrix);
+    void fillRandom(int nonZeroElements); 
+    String toString();
 }
