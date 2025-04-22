@@ -27,11 +27,16 @@ class ArrayListStack implements IStack {
         if (other == null || this.length() != other.length()) {
             return false;
         }
-        // listiterator
-        //
-        //
         
-        return true;
+        if (this != other) {
+            return false;
+        }         
+
+        if (!(other instanceof ArrayListStack)) { 
+            return false;
+        }
+
+        return this.list.equals(((ArrayListStack)other).list);
     }
 
     @Override 

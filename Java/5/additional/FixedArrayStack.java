@@ -32,10 +32,18 @@ class FixedArrayStack implements IStack {
         if (other == null || this.length() != other.length()) {
             return false;
         }
+        
+        if (!(other instanceof FixedArrayStack)) {
+            return false;
+        } 
+        FixedArrayStack o = (FixedArrayStack)other;
 
-        // 
-        //
-        //
+        for (int i = 0; i <= top; i++) {
+            if (this.array[i] != o.array[i]) {
+                return false;
+            }
+        }
+
         return true;
     }
 

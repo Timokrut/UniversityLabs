@@ -26,9 +26,12 @@ class LinkedListStack implements IStack {
         if (other == null || this.length() != other.length()) {
             return false;
         }
-        // listiter
-        //
-        return true;
+        
+        if (!(other instanceof LinkedListStack)) {
+            return false;
+        }
+
+        return this.list.equals(((LinkedListStack)other).list);
     }
 
     @Override 

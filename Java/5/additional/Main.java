@@ -7,7 +7,6 @@ public class Main {
         }
 
         int reversedValue = 0;
-        int multiplier = 1;
         
         while (stack.length() > 0) {
             reversedValue = reversedValue * 10 + stack.pop();
