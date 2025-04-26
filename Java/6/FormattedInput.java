@@ -1,75 +1,110 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.ArrayList;
 
 public class FormattedInput {
     public static Object[] scanf(String format) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Ввод пользователя: ");
-            String input = scanner.nextLine();
-            try {
-                return sscanf(format, input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Ошибка ввода. Пожалуйста, повторите ввод.");
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                System.out.print("Enter data: ");
+                String input = scanner.nextLine();
+                try {
+                    return sscanf(format, input);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Input failed: " + e.getMessage() + ". Try again.");
+                }
             }
         }
     }
 
-    public static Object[] sscanf(String format, String in) {
-        String regex = format.replace("%d", "(\\d+)")
-                            .replace("%f", "([+-]?\\d+\\.?\\d*)")
-                            .replace("%s", "(\\S+)")
-                            .replace("%c", "(.)")
-                            .replace(" ", "\\s+");
-        regex = "^" + regex + "$";
+    public static Object[] sscanf(String format, String input) throws IllegalArgumentException {
+        String[] formatSpecifiers = format.split(" ");
+        String[] inputParts = input.split(" ");
 
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(in.trim());
-
-        if (!matcher.find()) {
-            throw new IllegalArgumentException("Ввод не соответствует формату");
+        if (inputParts.length < formatSpecifiers.length) {
+            throw new IllegalArgumentException("Not enough arguments provided");
         }
 
-        String[] formatSpecifiers = format.split("\\s+");
         Object[] result = new Object[formatSpecifiers.length];
+        int inputIndex = 0;
 
         for (int i = 0; i < formatSpecifiers.length; i++) {
             String specifier = formatSpecifiers[i];
-            String value = matcher.group(i + 1);
             
+            if (inputIndex >= inputParts.length) {
+                throw new IllegalArgumentException("Not enough input values for format");
+            }
+
             try {
                 switch (specifier) {
                     case "%d":
-                        result[i] = Integer.parseInt(value);
+                        result[i] = Integer.parseInt(inputParts[inputIndex]);
+                        inputIndex++;
                         break;
                     case "%f":
-                        result[i] = Double.parseDouble(value);
+                        result[i] = Double.parseDouble(inputParts[inputIndex]);
+                        inputIndex++;
                         break;
                     case "%s":
-                        result[i] = value;
+                        result[i] = inputParts[inputIndex];
+                        inputIndex++;
                         break;
                     case "%c":
-                        if (value.length() != 1) {
-                            throw new IllegalArgumentException();
+                        if (inputParts[inputIndex].length() != 1) {
+                            throw new IllegalArgumentException("Expecting one symbol for %c");
                         }
-                        result[i] = value.charAt(0);
+                        result[i] = inputParts[inputIndex].charAt(0);
+                        inputIndex++;
+                        break;
+                    case "%a":
+                        result[i] = parseArray(inputParts, inputIndex);
+                        inputIndex = inputParts.length; 
                         break;
                     default:
-                        throw new IllegalArgumentException("Неизвестный спецификатор формата");
+                        throw new IllegalArgumentException("Wrong format specifier: " + specifier);
                 }
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Ошибка парсинга значения для " + specifier);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Wrong format for: " + specifier);
             }
         }
 
         return result;
     }
 
+    private static int[] parseArray(String[] inputParts, int startIndex) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        
+        for (int i = startIndex; i < inputParts.length; i++) {
+            try {
+                numbers.add(Integer.parseInt(inputParts[i]));
+            } catch (NumberFormatException e) {
+                continue;
+            }
+        }
+
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("No integers found for %a");
+        }
+
+        int[] array = new int[numbers.size()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = numbers.get(i);
+        }
+        return array;
+    }
+
     public static void main(String[] args) {
-        Object[] vals = scanf("%d %s %c %f");
+        System.out.println("Testing with format: %d %s %c %f %a");
+        Object[] vals = scanf("%d %s %c %f %a");
         for (Object val : vals) {
-            System.out.println(val + " (" + val.getClass().getSimpleName() + ")");
+            if (val instanceof int[]) {
+                System.out.print("Int array: ");
+                for (int num : (int[]) val) {
+                    System.out.print(num + " ");
+                }
+                System.out.println();
+            } else {
+                System.out.println(val + " (" + val.getClass().getSimpleName() + ")");
+            }
         }
     }
 }
