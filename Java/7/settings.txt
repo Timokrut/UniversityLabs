@@ -1,0 +1,4 @@
+volume=80
+brightness=50
+width=1920
+height=1080

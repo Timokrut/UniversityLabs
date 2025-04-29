@@ -1,5 +1,4 @@
 import java.io.*;
-import java.net.Proxy;
 import java.util.Map; 
 import java.util.HashMap; 
 import java.util.Objects;
@@ -82,7 +81,7 @@ public class Settings {
 
     @Override 
     public String toString() {
-        return "Settings {" + settingsMap + "}";
+        return "Settings " + settingsMap;
     }
 
     @Override 
