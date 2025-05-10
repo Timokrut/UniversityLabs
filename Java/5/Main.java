@@ -3,19 +3,6 @@ public class Main {
         int size = 1000;
         int nonZeroElements = 1000;
 
-        // Вопрос 1
-        IMatrix s1 = new SparseMatrix(1, 1);
-        System.out.println(s1.getClass());
-        // class SparseMatrix
-       
-
-        // Вопрос 2 
-        Iterator<T> it = list.iterator();
-        while (it.hasNext()) {
-            T s = it.next();
-            System.out.println(s);
-        }
-
         UsualMatrix usual1 = new UsualMatrix(size, size);
         UsualMatrix usual2 = new UsualMatrix(size, size);
 

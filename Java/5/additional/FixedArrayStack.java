@@ -52,11 +52,14 @@ class FixedArrayStack implements IStack {
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < array.length; i++) {
             sb.append(array[i]);
-            if (i < top) {
+            if (i <= top) {
+                if (i == top) {
+                    sb.append("]");
+                    return sb.toString();
+                }
                 sb.append(", ");
             }
         }
-        sb.append("]");
         return sb.toString();
     }
 }
