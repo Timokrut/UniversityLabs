@@ -2,31 +2,35 @@ import java.io.*;
 import java.util.*;
 
 public class Graph {
-    private HashMap<Integer, List<Integer>> adjacencyList;
+    private HashMap<String, List<String>> adjacencyList;
 
     public Graph() {
         this.adjacencyList = new HashMap<>();
     }
 
-    public void addVertex(int vertex) {
-        adjacencyList.put(vertex, new ArrayList<>());
+    public void addEdge(String from, String to) {
+        adjacencyList.putIfAbsent(from, new ArrayList<>());
+        adjacencyList.get(from).add(to);
     }
 
-    public void addEdge(int source, int destination) {
-        addVertex(source);
-        addVertex(destination);
-        adjacencyList.get(source).add(destination);
-    }
-
-    public List<Integer> getAdjacentVertices(int vertex) {
-        return adjacencyList.getOrDefault(vertex, Collections.emptyList());
+    public void removeEdge(String from, String to) {
+        List<String> edges = adjacencyList.get(from);
+        if (edges != null) {
+            edges.remove(to);
+            if (edges.isEmpty()) {
+                adjacencyList.remove(from);
+            }
+        }
     }
 
     public void saveToBinaryFile(String filename) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(filename))) {
-            dos.writeInt(adjacencyList.size()); 
-            for (Map.Entry<Integer, List<Integer>> entry : adjacencyList.entrySet()) {
-                // write values
+            dos.writeInt(adjacencyList.size());
+            for (Map.Entry<String, List<String>> entry : adjacencyList.entrySet()) {
+                dos.writeUTF(entry.getKey());
+                dos.writeInt(entry.getValue().size());
+                for (String neighbor : entry.getValue()) {
+                    dos.writeUTF(neighbor);
                 }
             }
         }
@@ -35,17 +39,24 @@ public class Graph {
     public void loadFromBinaryFile(String filename) throws IOException {
         adjacencyList.clear();
         try (DataInputStream dis = new DataInputStream(new FileInputStream(filename))) {
-            int vertexCount = dis.readInt();
-            for (int i = 0; i < vertexCount; i++) {
-                // read values
+            int size = dis.readInt();
+            for (int i = 0; i < size; i++) {
+                String node = dis.readUTF();
+                int edges = dis.readInt();
+                List<String> neighbors = new ArrayList<>();
+                for (int j = 0; j < edges; j++) {
+                    neighbors.add(dis.readUTF());
+                }
+                adjacencyList.put(node, neighbors);
             }
         }
     }
 
     public void saveToTextFile(String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (Map.Entry<Integer, List<Integer>> entry : adjacencyList.entrySet()) {
-                // write values
+            for (Map.Entry<String, List<String>> entry : adjacencyList.entrySet()) {
+                writer.write(entry.getKey() + ":" + String.join(",", entry.getValue()));
+                writer.newLine();
             }
         }
     }
@@ -55,34 +66,17 @@ public class Graph {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // read values
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    String[] neighbors = parts[1].split(",");
+                    adjacencyList.put(parts[0], new ArrayList<>(Arrays.asList(neighbors)));
+                }
             }
         }
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other){
-            return true;
-        } 
-        if (other == null || this.getClass() != other.getClass()) {
-            return false;
-        }
-        Graph graph = (Graph) other;
-        return adjacencyList.equals(graph.adjacencyList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(adjacencyList);
-    }
-
-    @Override
     public String toString() {
-        ...
-    }
-
-    public static void main(String[] args) {
-        ...
+        return "Graph: " + adjacencyList.toString();
     }
 }

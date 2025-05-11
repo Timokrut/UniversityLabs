@@ -2,15 +2,15 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        Settings settings = new Settings();
-        
-        settings.put("volume", 80);
-        settings.put("brightness", 50);
-        settings.put("width", 1920);
-        settings.put("height", 1080);
+        // Settings settings = new Settings();
+        // 
+        // settings.put("volume", 80);
+        // settings.put("brightness", 50);
+        // settings.put("width", 1920);
+        // settings.put("height", 1080);
 
         
-        try {
+        // try {
             // settings.saveToBinaryFile("settings.bin");
             // settings.saveToTextFile("settings.txt");
             // 
@@ -24,24 +24,42 @@ public class Main {
             // 
             // System.out.println("Are equal: " + settings.equals(loadedFromBinary));
             
+        // } catch (IOException e) {
+        //     System.out.println("Error: " + e.getMessage());
+        // }
             
+        Graph graph = new Graph();
 
-            Settings readFromBig = new Settings();
-            for (int i = 0; i < 100; i++) {
-                readFromBig.put("volume" + Integer.toString(i), i);
-            }
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("B", "C");
+        graph.addEdge("C", "A");
+        System.out.println("Graph after adding edges: " + graph);
 
-            Settings readFromBig2 = new Settings();
-            for (int i = 0; i < 100; i++) {
-                readFromBig2.put("volume" + Integer.toString(i), i);
-            }
+        // graph.removeEdge("A", "B");
+        // System.out.println("Graph after removing edge A -> B: " + graph);
+        //
+        // graph.removeEdge("A", "C");
+        // System.out.println("Graph after removing edge A -> C: " + graph);
 
-            readFromBig.saveToTextFile("s.text");
-            readFromBig2.saveToBinaryFile("s2.text");
-
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        try {
+            graph.saveToTextFile("graph.txt");
+            graph = new Graph(); 
+            graph.loadFromTextFile("graph.txt");
+            System.out.println("Graph loaded from text file: " + graph);
+        } catch (Exception e) {
+            System.out.println("Error with text file: " + e.getMessage());
         }
+
+        try {
+            graph.saveToBinaryFile("graph.bin");
+            graph = new Graph();
+            graph.loadFromBinaryFile("graph.bin");
+            System.out.println("Graph loaded from binary file: " + graph);
+        } catch (Exception e) {
+            System.out.println("Error with binary file: " + e.getMessage());
+        }
+
     }
 }
 
