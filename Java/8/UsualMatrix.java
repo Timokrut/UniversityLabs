@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class UsualMatrix implements IMatrix {
+public class UsualMatrix {
     protected int[][] data;
     protected int rows;
     protected int cols;
@@ -11,28 +11,23 @@ public class UsualMatrix implements IMatrix {
         this.data = new int[rows][cols];
     }
 
-    @Override 
     public int getRows() {
         return rows;
     }
 
-    @Override 
     public int getColumns() {
         return cols;
     }
 
-    @Override 
     public int getElement(int row, int col) {
         return data[row][col];
     }
     
-    @Override 
     public void setElement(int row, int col, int value) {
         data[row][col] = value;
     }
 
-    @Override 
-    public IMatrix add(IMatrix other) {
+    public UsualMatrix add(UsualMatrix other) {
         if (this.getRows() != other.getRows() || this.getColumns() != other.getColumns()) {
             throw new RuntimeException("Matrix dimensions must be same for addition");
         }
@@ -46,8 +41,7 @@ public class UsualMatrix implements IMatrix {
         return res;
     }
    
-    @Override 
-    public IMatrix multiply(IMatrix other) {
+    public UsualMatrix multiply(UsualMatrix other) {
         if (this.getColumns() != other.getRows()) {
             throw new RuntimeException("Matrix dimensions must agree for multiplication");
         }
@@ -66,8 +60,7 @@ public class UsualMatrix implements IMatrix {
         return res;
     }
     
-    @Override 
-    public boolean equals(IMatrix other) {
+    public boolean equals(UsualMatrix other) {
         if (this.getRows() != other.getRows() || this.getColumns() != other.getColumns()) {
             return false;
         }
@@ -83,7 +76,6 @@ public class UsualMatrix implements IMatrix {
         return true;
     }
 
-    @Override
     public void fillRandom() {
         Random random = new Random();
         for (int i = 0; i < this.getRows(); i++) {

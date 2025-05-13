@@ -5,12 +5,12 @@ public class ParallelMatrixProduct {
         this.threadsCount = threadsCount;
     } 
 
-    public IMatrix product(IMatrix a, IMatrix b) {
+    public UsualMatrix product(UsualMatrix a, UsualMatrix b) {
         if (a.getColumns() != b.getRows()) {
             throw new RuntimeException("Matrix dimensions must agree for multiplication");
         }
 
-        IMatrix result = new UsualMatrix(a.getRows(), b.getColumns());
+        UsualMatrix result = new UsualMatrix(a.getRows(), b.getColumns());
         Thread[] threads = new Thread[Math.min(threadsCount, a.getRows())];
 
         int rowsPerThread = a.getRows() / threads.length;
@@ -39,13 +39,13 @@ public class ParallelMatrixProduct {
     }
 
     private static class MatrixMultiplier implements Runnable {
-        private final IMatrix a;
-        private final IMatrix b;
-        private final IMatrix result;
+        private final UsualMatrix a;
+        private final UsualMatrix b;
+        private final UsualMatrix result;
         private final int startRow;
         private final int endRow;
 
-        public MatrixMultiplier(IMatrix a, IMatrix b, IMatrix result, int startRow, int endRow) {
+        public MatrixMultiplier(UsualMatrix a, UsualMatrix b, UsualMatrix result, int startRow, int endRow) {
             this.a = a;
             this.b = b;
             this.result = result;
@@ -66,7 +66,6 @@ public class ParallelMatrixProduct {
             }
         }
     }
-
 }
 
     
