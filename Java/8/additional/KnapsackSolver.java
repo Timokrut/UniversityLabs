@@ -1,7 +1,7 @@
 public class KnapsackSolver implements Runnable {
-    private final int start;
-    private final int end;
-    private final Knapsack knapsack;
+    private int start;
+    private int end;
+    private Knapsack knapsack;
     private int maxProfit = 0;
 
     public KnapsackSolver(int start, int end, Knapsack knapsack) {

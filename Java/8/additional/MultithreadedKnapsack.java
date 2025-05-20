@@ -24,6 +24,13 @@ public class MultithreadedKnapsack {
             thread.join();
         }
 
-        return solvers.stream().mapToInt(KnapsackSolver::getMaxProfit).max().orElse(0);
+        int max = 0;
+        for (KnapsackSolver solver : solvers) {
+            int profit = solver.getMaxProfit();
+            if (profit > max) {
+                max = profit;
+            }
+        }
+        return max; 
     }
 }
