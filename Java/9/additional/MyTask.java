@@ -1,31 +1,30 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MyTask {
     private final int start;
     private final int end;
-    private List<Integer> answers;
-    
+    private final List<Integer> answers = new ArrayList<>();
+
     public MyTask(int start, int end) {
         this.start = start;
         this.end = end;
-        this.answers = new ArrayList<>();
     }
-    
+
     public int getStart() {
         return start;
     }
-    
+
     public int getEnd() {
         return end;
     }
-    
+
     public List<Integer> getAnswers() {
-        return answers;
+        return Collections.unmodifiableList(answers);
     }
-    
-    public void setAnswers(List<Integer> answers) {
-        this.answers = answers;
+
+    public void addAnswers(List<Integer> primes) {
+        answers.addAll(primes);
     }
 }
-
