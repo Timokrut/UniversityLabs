@@ -16,8 +16,8 @@ public class Server {
         final InetAddress[] clientAddr = {null};
         final int[] clientPort = {-1};
 
-        int secret = (int)(Math.random() * 100) + 1;
-        System.out.println("Secret number: " + secret);
+        final int[] secret = {(int)(Math.random() * 100) + 1};
+        System.out.println("Secret number: " + secret[0]);
 
         Thread receiver = new Thread(() -> {
             byte[] buffer = new byte[1024];
@@ -37,9 +37,12 @@ public class Server {
                             System.out.println("Client changed name to: " + parts[1]);
                         }
                     } else if (msg.equals("@quit")) {
-                        System.out.println(serverName[0] + " disconnected.");
+                        System.out.println(serverName[0] + " ended session.");
                         clientAddr[0] = null;
                         clientPort[0] = -1;
+                        secret[0] = (int)(Math.random() * 100) + 1;
+
+                        // socket.close();
                     } else {
                         System.out.println(msg);
                         
@@ -47,9 +50,9 @@ public class Server {
                             int guess = Integer.parseInt(msg);
                             String response;
 
-                            if (guess == secret) {
-                                response = "You guessed: " + secret;
-                            } else if (guess < secret) {
+                            if (guess == secret[0]) {
+                                response = "You guessed: " + secret[0];
+                            } else if (guess < secret[0]) {
                                 response = "Bigger";
                             } else { 
                                 response = "Lower";

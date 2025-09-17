@@ -36,9 +36,13 @@ public class BotClient {
                         socket.close();
                         break;
                     } else if (msg.equals("Bigger")) {
-                        //
+                        low[0] = guess[0] + 1;
+                        guess[0] = (low[0] + high[0]) / 2;
+                        sendGuess(socket, serverAddr, serverPort, guess[0]);
                     } else if (msg.equals("Lower")) {
-                        // 
+                        high[0] = guess[0] - 1;
+                        guess[0] = (low[0] + high[0]) / 2;
+                        sendGuess(socket, serverAddr, serverPort, guess[0]);
                     }
                 }
             } catch (IOException e) {
