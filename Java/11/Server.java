@@ -15,9 +15,11 @@ public class Server {
         final String[] serverName = {"Server"}; 
         final InetAddress[] clientAddr = {null};
         final int[] clientPort = {-1};
+        final boolean[] restartGame = {false};
 
-        final int[] secret = {(int)(Math.random() * 100) + 1};
-        System.out.println("Secret number: " + secret[0]);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int secret[] = {askSecret(reader)};
+        // final int[] secret = {(int)(Math.random() * 100) + 1};
 
         Thread receiver = new Thread(() -> {
             byte[] buffer = new byte[1024];
@@ -31,18 +33,13 @@ public class Server {
 
                     String msg = new String(packet.getData(), 0, packet.getLength());
 
-                    if (msg.startsWith("@name")) {
-                        String[] parts = msg.split(" ", 2);
-                        if (parts.length == 2) {
-                            System.out.println("Client changed name to: " + parts[1]);
-                        }
-                    } else if (msg.equals("@quit")) {
+                    if (msg.equals("@quit")) {
                         System.out.println(serverName[0] + " ended session.");
                         clientAddr[0] = null;
                         clientPort[0] = -1;
-                        secret[0] = (int)(Math.random() * 100) + 1;
+                        restartGame[0] = true;                        
+                        // secret[0] = (int)(Math.random() * 100) + 1;
 
-                        // socket.close();
                     } else {
                         System.out.println(msg);
                         
@@ -73,41 +70,13 @@ public class Server {
         });
         receiver.start();
 
-        // BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        // while (true) {
-        //     String line = reader.readLine();
-        //     if (line == null) continue;
-        //
-        //     if (line.startsWith("@name")) {
-        //         String[] parts = line.split(" ", 2);
-        //         if (parts.length == 2) {
-        //             serverName[0] = parts[1];
-        //             System.out.println("Your name is now: " + serverName[0]);
-        //         }
-        //         continue;
-        //     }
-        //
-        //     if (clientAddr[0] == null || clientPort[0] == -1) {
-        //         System.out.println("No connected clients, waiting...");
-        //         continue;
-        //     }
-        //
-        //     String messageToSend;
-        //     if (line.equals("@quit")) {
-        //         messageToSend = "@quit";
-        //         System.out.println(serverName[0] + "left chat.");
-        //         socket.close();
-        //     } else {
-        //         messageToSend = serverName[0] + ": " + line;
-        //     }
-        //
-        //     byte[] buf = messageToSend.getBytes();
-        //     DatagramPacket packet = new DatagramPacket(buf, buf.length, clientAddr[0], clientPort[0]);
-        //     socket.send(packet);
-        // }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (!socket.isClosed()) {
+            if (restartGame[0]) {
+                secret[0] = askSecret(reader);
+                restartGame[0] = false;
+            }
+
             String line = reader.readLine();
             if (line == null) continue;
 
@@ -118,6 +87,23 @@ public class Server {
             }
         }
 
+        
+
+        }
+    public static int askSecret(BufferedReader reader) throws IOException {
+        int secret;
+        while (true) {
+            System.out.println("Set secret number (1 - 100): ");
+            try {
+                secret = Integer.parseInt(reader.readLine());
+                if (secret >= 1 && secret <= 100) break;
+                System.out.println("Number should be in range from 1 to 100. Try again ...");
+            } catch (NumberFormatException e) {
+                System.out.println("Error with parsing integer. Try again ...");
+            }
+        }
+        System.out.println("Secret number: " + secret);
+        return secret;
     }
 }
 
