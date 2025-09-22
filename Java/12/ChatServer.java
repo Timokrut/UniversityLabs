@@ -1,4 +1,4 @@
-import jaa.io.*;
+import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -49,7 +49,7 @@ public class ChatServer {
                         if (parts.length >= 3) {
                             String target = parts[1];
                             String privateMsg = parts[2];
-                            sendToUser(target, "[ЛС от " + username + "]: " + privateMsg);
+                            sendToUser(target, "[PM from " + username + "]: " + privateMsg);
                         } else {
                             out.println("Usage: @senduser <name> <msg>");
                         }
