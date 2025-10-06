@@ -1,4 +1,4 @@
-package edu.lab13.notebook;
+package com.example.notebook;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,5 +19,4 @@ public class AppInitializer implements ServletContextListener {
         // nothing
     }
 }
-
 

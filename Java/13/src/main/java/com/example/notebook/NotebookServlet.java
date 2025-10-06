@@ -1,4 +1,4 @@
-package edu.lab13.notebook;
+package com.example.notebook;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +45,6 @@ public class NotebookServlet extends HttpServlet {
             return;
         }
 
-        // list
         NotebookStore store = (NotebookStore) getServletContext().getAttribute("store");
         Map<String, List<String>> snapshot = store.snapshot();
         out.println("<html><body>");
@@ -91,5 +90,3 @@ public class NotebookServlet extends HttpServlet {
         return s == null ? "" : s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
     }
 }
-
-

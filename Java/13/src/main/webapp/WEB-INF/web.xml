@@ -12,12 +12,12 @@
   </context-param>
 
   <listener>
-    <listener-class>edu.lab13.notebook.AppInitializer</listener-class>
+    <listener-class>com.example.notebook.AppInitializer</listener-class>
   </listener>
 
   <servlet>
     <servlet-name>NotebookServlet</servlet-name>
-    <servlet-class>edu.lab13.notebook.NotebookServlet</servlet-class>
+    <servlet-class>com.example.notebook.NotebookServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
