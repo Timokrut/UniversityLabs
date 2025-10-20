@@ -18,12 +18,18 @@ public class NotebookServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         PrintWriter out = resp.getWriter();
 
+        NotebookStore store = (NotebookStore) getServletContext().getAttribute("store");
+
         if ("addUser".equals(action)) {
             out.println("<html><body>");
             out.println("<h3>Добавить пользователя</h3>");
             out.println("<form method='post'>");
             out.println("<input type='hidden' name='action' value='addUser' />");
             out.println("Имя: <input type='text' name='username' /> ");
+            out.println("Группы:<br/>");
+            out.println("<label><input type='checkbox' name='group' value='colleagues'/> Коллеги</label><br/>");
+            out.println("<label><input type='checkbox' name='group' value='family'/> Семья</label><br/>");
+            out.println("<label><input type='checkbox' name='group' value='friends'/> Друзья</label><br/><br/>");
             out.println("<button type='submit'>Submit</button>");
             out.println("</form>");
             out.println("<p><a href='?'>Назад</a></p>");
@@ -45,7 +51,31 @@ public class NotebookServlet extends HttpServlet {
             return;
         }
 
-        NotebookStore store = (NotebookStore) getServletContext().getAttribute("store");
+        if ("list".equals(action) || action == null) {
+            Group currentGroup = Group.fromParam(req.getParameter("group"));
+
+            out.println("<html><body>");
+            out.println("<h3>Записная книжка</h3>");
+
+            out.println("<p>");
+            for (Group g : Group.values()) {
+                String link = "?group=" + g.name().toLowerCase();
+                out.println("<a href='" + link + "'>" + g.getDisplayName() + "</a> ");
+            }
+            out.println("</p>");
+
+            out.println("<p><a href='?action=addUser'>Добавить пользователя</a> | <a href='?action=addPhone'>Добавить телефон</a></p>");
+
+            Map<String, List<String>> snapshot = store.getUsersByGroup(currentGroup);
+            out.println("<ul>");
+            for (Map.Entry<String, List<String>> e : snapshot.entrySet()) {
+                out.println("<li><b>" + escape(e.getKey()) + ":</b> " + String.join(", ", e.getValue()) + "</li>");
+            }
+            out.println("</ul>");
+            out.println("</body></html>");
+            return;
+        }
+
         Map<String, List<String>> snapshot = store.snapshot();
         out.println("<html><body>");
         out.println("<h3>Записная книжка</h3>");
@@ -65,7 +95,16 @@ public class NotebookServlet extends HttpServlet {
         if ("addUser".equals(action)) {
             String username = trim(req.getParameter("username"));
             if (username != null && !username.isEmpty()) {
-                store.addUser(username);
+                String[] groupParams = req.getParameterValues("group");
+                if (groupParams != null) {
+                    Group[] groups = new Group[groupParams.length];
+                    for (int i = 0; i < groupParams.length; i++) {
+                        groups[i] = Group.fromParam(groupParams[i]);
+                    }
+                    store.addUser(username, groups);
+                } else {
+                    store.addUser(username, Group.ALL);
+                }
             }
             resp.sendRedirect(req.getContextPath() + "/");
             return;
