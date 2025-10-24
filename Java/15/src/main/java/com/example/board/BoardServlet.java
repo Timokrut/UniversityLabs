@@ -13,17 +13,22 @@ public class BoardServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        String filePath = getServletContext().getRealPath("/users.txt");
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    users.put(parts[0].trim(), parts[1].trim());
-                }
+        try (InputStream inputStream = getServletContext().getResourceAsStream("/users.txt")){
+            if (inputStream == null) {
+                throw new ServletException("File users.txt not found");
             }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    if (parts.length == 2) {
+                        users.put(parts[0].trim(), parts[1].trim());
+                    }
+                }
+            } 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ServletException("Error reading users.txt", e);
         }
         getServletContext().setAttribute("users", users);
         getServletContext().setAttribute("posts", posts);
