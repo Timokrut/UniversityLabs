@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 20px;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.post-text {
+    margin-left: 10px;
+}
+
+.link {
+    color: #0066cc;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
