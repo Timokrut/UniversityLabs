@@ -12,7 +12,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
-        String username = (session != null) ? (String) session.getAttribute("username") : null;
+        String username = (session != null) ? (String) session.getAttribute("user") : null;
 
         resp.setContentType("text/html; charset=UTF-8");
         PrintWriter out = resp.getWriter();

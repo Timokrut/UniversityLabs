@@ -1,6 +1,5 @@
-import com.example.board.board;
+package com.example.board;
 
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
@@ -12,7 +11,7 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
-        String currentUser = (session != null) ? (String) session.getAttribute("username") : null;
+        String currentUser = (session != null) ? (String) session.getAttribute("user") : null;
 
         if (currentUser == null || !currentUser.equals("admin")) {
             resp.sendRedirect("board");
