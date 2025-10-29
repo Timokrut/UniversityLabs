@@ -49,8 +49,10 @@ public class BoardServlet extends HttpServlet {
         if (user == null) {
             out.println("<a class='link' href='login'>Enter</a>");
         } else {
-            out.printf("Hello, <b>%s</b> | <a class='link' href='addpost'>Add post</a> | "
-                    + "<a class='link' href='logout'>Exit</a>", user);
+            out.printf("Hello, <b>%s</b> | <a class='link' href='addpost'>Add post</a> | <a class='link' href='logout'>Exit</a>", user);
+            if (user.equals("admin")) {
+                out.println(" | <a class='link' href='admin'>Admin panel</a>");
+            }
         }
 
         out.println("<hr>");
