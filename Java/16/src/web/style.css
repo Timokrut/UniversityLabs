@@ -1,0 +1,18 @@
+ul {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.hidden {
+    display: none;
+}
+
+.toggle {
+    cursor: pointer;
+    color: blue;
+    margin-left: 5px;
+}
+
+.toggle:hover {
+    text-decoration: underline;
+}

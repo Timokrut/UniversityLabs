@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="5.0">
+    <servlet>
+        <servlet-name>TwoLevelListServlet</servlet-name>
+        <servlet-class>com.example.TwoLevelListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TwoLevelListServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+</web-app>
