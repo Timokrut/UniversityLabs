@@ -1,20 +1,17 @@
 package com.example;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
 
 public class TwoLevelListServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
-        String filePath = getServletContext().getRealPath("/data.txt");
-        List<Category> categories = parseFile(filePath);
+        List<Category> categories = parseFile(getServletContext(), "/data.txt");
 
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
@@ -27,8 +24,7 @@ public class TwoLevelListServlet extends HttpServlet {
 
         int id = 0;
         for (Category c : categories) {
-            out.printf("<li>%s <span id='btn-%d' class='toggle' onclick='toggleList(%d)'>[+]</span>%n",
-                    c.name, id, id);
+            out.printf("<li>%s <span id='btn-%d' class='toggle' onclick='toggleList(%d)'>[+]</span>%n", c.name, id, id);
             out.printf("<ul id='list-%d' class='hidden'>%n", id);
             for (String sub : c.items) {
                 out.printf("<li>%s</li>%n", sub);
@@ -36,25 +32,31 @@ public class TwoLevelListServlet extends HttpServlet {
             out.println("</ul></li>");
             id++;
         }
-
         out.println("</ol>");
         out.println("</body></html>");
     }
 
-    private List<Category> parseFile(String path) throws IOException {
+    private List<Category> parseFile(ServletContext context, String path) throws IOException {
         List<Category> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
-            Category current = null;
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("* ")) {
-                    if (current != null) list.add(current);
-                    current = new Category(line.substring(2).trim());
-                } else if (line.startsWith("    * ")) {
-                    if (current != null) current.items.add(line.substring(6).trim());
-                }
+
+        try (InputStream is = context.getResourceAsStream(path)) {
+            if (is == null) {
+                throw new FileNotFoundException("FIle not found: " + path);
             }
-            if (current != null) list.add(current);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+                Category current = null;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.startsWith("* ")) {
+                        if (current != null) list.add(current);
+                        current = new Category(line.substring(2).trim());
+                    } else if (line.startsWith("    * ")) {
+                        if (current != null) current.items.add(line.substring(6).trim());
+                    }
+                }
+                if (current != null) list.add(current);
+            }
         }
         return list;
     }
