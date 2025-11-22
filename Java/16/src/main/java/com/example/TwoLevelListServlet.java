@@ -33,6 +33,14 @@ public class TwoLevelListServlet extends HttpServlet {
             id++;
         }
         out.println("</ol>");
+
+        out.println("<h3>Добавить элемент</h3>");
+        out.println("<form id='addForm' onsubmit='return addItem(event)'>");
+        out.println("Номер списка: <input type='number' id='listNumber' min='0' required><br>");
+        out.println("Название пункта: <input type='text' id='itemName' required><br>");
+        out.println("<button type='submit'>Добавить</button>");
+        out.println("</form>");
+        out.println("<p id='message' class='error'></p>");
         out.println("</body></html>");
     }
 
